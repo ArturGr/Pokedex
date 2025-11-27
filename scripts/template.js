@@ -14,7 +14,6 @@ const POKEMON_FIRST_WINDOW = (i, name) => `
 `;
 
 const DIALOG_WINDOW = () => `
-            <dialog id="myDialog">
                 <header>
                     <h2>test</h2>
                 </header>
@@ -24,9 +23,12 @@ const DIALOG_WINDOW = () => `
                 <footer>
                     test
                 </footer>
-            </dialog>
 `;
 
 const BUTTON_TO_LOAD_MORE = (pokemonAmount) => `
     <button class="button_for_more" id="button_for_more" onclick="load(20, ${pokemonAmount})">Load more</button>
+`;
+
+const LOADING_IMG = () => `
+    <img src="./assets/img/Loading.png" alt="Loading animation" id="myLoadIMG">
 `;

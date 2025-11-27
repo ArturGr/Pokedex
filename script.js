@@ -17,9 +17,7 @@ function pokemonMainRender() {
         addingPokemonTypeImg(`pokemonImgFooter${DATA[i].id}`, i);
     }
     pokemonBackgrouColorGenerator();
-    MAIN_POKE_WINDOW_REF.innerHTML += DIALOG_WINDOW();
     MAIN_POKE_WINDOW_REF.innerHTML += BUTTON_TO_LOAD_MORE(pokemonAmount);
-    DIALOGREF = document.getElementById("myDialog");
     disableLoadingSpinner();
 }
 
@@ -122,19 +120,33 @@ function pokemonWindowBackgroundColor(type, BACKGROUD_REF) {
     }
 }
 
-function openDialog() {
+function openDialog(parameter) {
+    DIALOGREF = document.getElementById("myDialog");
+    if (parameter == "LOADING") {
+        DIALOGREF.innerHTML = LOADING_IMG();
+        DIALOGREF.style.height = "400px";
+        DIALOGREF.style.justifyContent = "center";
+    } else if (parameter != "LOADING") {
+        DIALOGREF.innerHTML = DIALOG_WINDOW();
+        closeDialogListner();
+        keyListner();
+    }
+    document.body.style.overflow = "clip";
     DIALOGREF.showModal();
     DIALOGREF.classList.add("opened");
-    CloseDialogListner();
-    keyListner();
 }
 
 function closeDialog() {
     DIALOGREF.close();
+    DIALOGREF.innerHTML = "";
     DIALOGREF.classList.remove("opened");
+    DIALOGREF.style.height = "";
+    DIALOGREF.style.justifyContent = "";
+    document.body.style.overflow = "auto";
+
 }
 
-function CloseDialogListner() {
+function closeDialogListner() {
     DIALOGREF.addEventListener('click', function (event) {
         if (event.target === DIALOGREF) {
             closeDialog();
@@ -217,7 +229,6 @@ function typeImgSearch(type) {
 
 function addingPokemonTypeImg(idElement, index) {
     const POKEMON_TYPE_IMG_REF = document.getElementById(`${idElement}`);
-
     const NUMBER_OF_TYPES = DATA[index].types.length;
 
     for (let i = 0; i < NUMBER_OF_TYPES; i++) {
@@ -229,9 +240,10 @@ function enableLoadingSpinner() {
     if (document.getElementById("button_for_more") != null) {
         document.getElementById("button_for_more").style.display = "none";
     }
-
+    openDialog("LOADING");
 }
 
 function disableLoadingSpinner() {
-    document.getElementById("button_for_more").style.display = "unset";
+    document.getElementById("button_for_more").style.display = "";
+    closeDialog();
 }

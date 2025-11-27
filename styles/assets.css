@@ -41,8 +41,8 @@ html {
 
 
                         img:hover {
-                            -webkit-filter: drop-shadow(1px 1px 10px var(--black));
-                            filter: drop-shadow(1px 1px 1px var(--black));
+                            -webkit-filter: drop-shadow(8px -8px 10px var(--black));
+                            filter: drop-shadow(8px -8px 10px var(--black));
                         }
                     }
 
@@ -76,10 +76,7 @@ html {
 
 .button_for_more {
     height: 50px;
-    flex-direction: row;
-    flex-wrap: nowrap;
     align-content: center;
-    justify-content: center;
     align-items: center;
     border: solid white;
     background: var(--header);
@@ -95,7 +92,6 @@ html {
     transform: scale(1.25);
 }
 
-/*Dialog properties*/
 .opened {
     position: fixed;
     top: 50%;
@@ -149,7 +145,29 @@ html {
 
 #myDialog::backdrop {
     background-color: rgba(0, 0, 0, 0.7);
-    /* Setting a grayed out, semi-transparent background */
     backdrop-filter: blur(5px);
-    /* Blur-effect */
+}
+
+#myLoadIMG {
+    position: absolute;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    animation: mymove 3s infinite;
+
+}
+
+@keyframes mymove {
+    0% {
+        scale: 100%;
+    }
+
+    50% {
+        transform: rotate(360deg);
+        scale: 150%;
+    }
+
+    100% {
+        scale: 100%;
+    }
 }
