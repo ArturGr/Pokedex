@@ -20,6 +20,7 @@ function pokemonMainRender() {
     MAIN_POKE_WINDOW_REF.innerHTML += DIALOG_WINDOW();
     MAIN_POKE_WINDOW_REF.innerHTML += BUTTON_TO_LOAD_MORE(pokemonAmount);
     DIALOGREF = document.getElementById("myDialog");
+    disableLoadingSpinner();
 }
 
 function pokemonShowWindowStats(i) {
@@ -46,6 +47,7 @@ function save() {
 }
 
 async function load(limit, offset) {
+    enableLoadingSpinner();
     try {
         let response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
         if (!response.ok) {
@@ -193,11 +195,6 @@ function filterStats(array) {
     return NEW_ARRAY;
 }
 
-//singlePokemon.abilities[0].ability.name
-//singlePokemon.types[0].type.name
-//singlePokemon.stats[0].base_stat
-//singlePokemon.stats[0].stat.name
-
 function colorSearch(type) {
     for (let i = 0; i < BACKGROUND_COLOR.length; i++) {
         if (type == BACKGROUND_COLOR[i].type) {
@@ -226,4 +223,15 @@ function addingPokemonTypeImg(idElement, index) {
     for (let i = 0; i < NUMBER_OF_TYPES; i++) {
         POKEMON_TYPE_IMG_REF.innerHTML += `<img src="${typeImgSearch(DATA[index].types[i])}" alt="">`
     }
+}
+
+function enableLoadingSpinner() {
+    if (document.getElementById("button_for_more") != null) {
+        document.getElementById("button_for_more").style.display = "none";
+    }
+
+}
+
+function disableLoadingSpinner() {
+    document.getElementById("button_for_more").style.display = "unset";
 }

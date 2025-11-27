@@ -76,6 +76,23 @@ html {
 
 .button_for_more {
     height: 50px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    border: solid white;
+    background: var(--header);
+    color: var(--white);
+    border-radius: 20px;
+    width: 100px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .2s;
+}
+
+.button_for_more:hover {
+    transform: scale(1.25);
 }
 
 /*Dialog properties*/

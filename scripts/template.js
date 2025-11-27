@@ -28,5 +28,5 @@ const DIALOG_WINDOW = () => `
 `;
 
 const BUTTON_TO_LOAD_MORE = (pokemonAmount) => `
-    <button class="button_for_more" onclick="load(20, ${pokemonAmount})">Load more</button>
+    <button class="button_for_more" id="button_for_more" onclick="load(20, ${pokemonAmount})">Load more</button>
 `;
