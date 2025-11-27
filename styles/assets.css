@@ -43,6 +43,7 @@ html {
                         img:hover {
                             -webkit-filter: drop-shadow(8px -8px 10px var(--black));
                             filter: drop-shadow(8px -8px 10px var(--black));
+                            transform: scale(1.25);
                         }
                     }
 
@@ -97,6 +98,7 @@ html {
     top: 50%;
     left: 50%;
     width: 550px;
+    height: 550px;
     border-style: solid;
     border-color: var(--white);
     border-radius: 16px;
@@ -105,24 +107,26 @@ html {
     flex-wrap: nowrap;
     align-items: center;
     transform: translate(-50%, -50%);
-    background-color: var(--blue-main);
+    background-color: var(--background);
 
     header {
-        height: 100px;
+        height: 50px;
         width: 100%;
         padding: 0;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        justify-content: space-between;
+        justify-content: space-evenly;
         align-items: center;
-        gap: 8px;
+        border-radius: 16px 16px 0px 0px;
+        gap: 10px;
     }
 
     footer {
         height: 100px;
         width: 100%;
         padding: 0;
+        border-radius: 0px 0px 16px 16px;
 
         img {
             width: 150px;
@@ -130,12 +134,53 @@ html {
     }
 }
 
+.myDialog_main {
+    height: 250px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    section.myDialog_sectionImg {
+        img {
+            height: 100px;
+        }
+
+        div.image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            flex-direction: column;
+            padding: 25px 30px;
+        }
+
+        div.types {
+            height: 80px;
+            padding: 25px 30px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: space-around;
+            align-items: center;
+            gap: 10px;
+
+            img {
+                height: 30px;
+            }
+        }
+
+    }
+}
+
 #myDialog {
     h2 {
         color: var(--white);
         font-size: 24px;
-        text-align: left;
-        padding-left: 25px;
+        text-align: center;
     }
 
     section {

@@ -13,15 +13,31 @@ const POKEMON_FIRST_WINDOW = (i, name) => `
             </div>
 `;
 
-const DIALOG_WINDOW = () => `
+const DIALOG_WINDOW = (i) => `
                 <header>
-                    <h2>test</h2>
+                    <h2>#${DATA[i].id}</h2>
+                    <h2>${capitalizeFirstLetter(DATA[i].name)}</h2>
                 </header>
-                <section>
-                    test
-                </section>
+                <main class="myDialog_main">
+                    <section class="myDialog_sectionImg">
+                        <div class="image" id="${i}_img">
+                        <img src="${DATA[i].gif}" alt="Image of ${DATA[i].name}">
+                        </div>
+                        <div class="types" id="${i}_types">
+                        </div>
+                    </section>
+                    <section class="myDialog_sectionNav">
+                        <nav>
+                            <li>main</li>
+                            <li>stats</li>
+                            <li>evo chain</li>
+                        </nav>
+                    </section>
+                    <section class="myDialog_sectionStats" id="">
+                    </section>
+                </main>
                 <footer>
-                    test
+
                 </footer>
 `;
 

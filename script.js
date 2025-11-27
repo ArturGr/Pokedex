@@ -24,11 +24,10 @@ function pokemonMainRender() {
 function pokemonShowWindowStats(i) {
     console.log("Ta funkcja pokazuje okno z zdjeciem pokemona i glownymi statystykami. w tym oknie mozna wybrac podokno z wlasciwosciami i ewolucja pokemona");
     console.log("Wywolana funkcja dla pokemona nr " + i)
-
-    openDialog();
+    openDialog(i);
 }
 
-function pokemonShowSstats() {
+function pokemonShowStats() {
     console.log("Ta funkcja pokazuje statystyki zyciowe danego pokemona");
 }
 
@@ -87,6 +86,7 @@ function dataImportToArray() {
         "height": singlePokemon.height,
         "weight": singlePokemon.weight,
         "foto": singlePokemon.sprites.other.dream_world.front_default,
+        "gif": singlePokemon.sprites.other.showdown.front_default,
         "stats": filterStats(singlePokemon.stats),
         "abilities": filterAbilities(singlePokemon.abilities),
         "types": filterTypes(singlePokemon.types)
@@ -97,13 +97,14 @@ function dataImportToArray() {
 function pokemonBackgrouColorGenerator() {
     for (let i = 0; i < DATA.length; i++) {
         let type = DATA[i].types;
-        const BACKGROUD_REF = document.getElementById(`pokemonMain${DATA[i].id}`);
-        pokemonWindowBackgroundColor(type, BACKGROUD_REF);
+        const idElement = `pokemonMain${DATA[i].id}`;
+        pokemonWindowBackgroundColor(type, idElement);
     }
 }
 
-function pokemonWindowBackgroundColor(type, BACKGROUD_REF) {
+function pokemonWindowBackgroundColor(type, idElement) {
     const NUMBER_OF_COLORS = type.length;
+    const BACKGROUD_REF = document.getElementById(`${idElement}`);
     let color = "";
     if (NUMBER_OF_COLORS == 2) {
         const COLOR_FIRST = colorSearch(type[0]);
@@ -127,9 +128,12 @@ function openDialog(parameter) {
         DIALOGREF.style.height = "400px";
         DIALOGREF.style.justifyContent = "center";
     } else if (parameter != "LOADING") {
-        DIALOGREF.innerHTML = DIALOG_WINDOW();
+        DIALOGREF.innerHTML = DIALOG_WINDOW(parameter);
         closeDialogListner();
         keyListner();
+        pokemonWindowBackgroundColor(DATA[parameter].types, `${parameter}_img`);
+        addingPokemonTypeImg(`${parameter}_types`, parameter);
+
     }
     document.body.style.overflow = "clip";
     DIALOGREF.showModal();
