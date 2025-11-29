@@ -123,13 +123,24 @@ html {
     }
 
     footer {
-        height: 100px;
+        height: 70px;
         width: 100%;
         padding: 0;
         border-radius: 0px 0px 16px 16px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+        flex-wrap: nowrap;
 
         img {
-            width: 150px;
+            cursor: pointer;
+            width: 100px;
+        }
+
+        img:hover {
+            transform: scale(1.1);
         }
     }
 }
@@ -174,7 +185,50 @@ html {
         }
 
     }
+
+    section.myDialog_sectionNav {
+        width: 100%;
+
+        nav {
+            color: white;
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: nowrap;
+            background: var(--header);
+            width: 100%;
+            text-align: center;
+            gap: 1%;
+            height: 40px;
+            margin-bottom: 25px;
+
+            li {
+                width: 33%;
+                background-color: var(--nav_bar_stats);
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        li:hover {
+            border-bottom: solid white 2px;
+            cursor: pointer;
+        }
+    }
+
+    section.myDialog_sectionStats {
+        width: 100%;
+        color: var(--white);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
 }
+
 
 #myDialog {
     h2 {

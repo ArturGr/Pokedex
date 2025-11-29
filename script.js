@@ -22,16 +22,31 @@ function pokemonMainRender() {
 }
 
 function pokemonShowWindowStats(i) {
-    console.log("Ta funkcja pokazuje okno z zdjeciem pokemona i glownymi statystykami. w tym oknie mozna wybrac podokno z wlasciwosciami i ewolucja pokemona");
-    console.log("Wywolana funkcja dla pokemona nr " + i)
     openDialog(i);
+    pokemonShowMain(i);
 }
 
-function pokemonShowStats() {
+function pokemonShowMain(parameter) {
+    const REF_ELEMENT = document.getElementById(`${parameter}_stats`);
+    const HEIGHT = DATA[parameter].height * 10;
+    const WEIGHT = DATA[parameter].weight / 10;
+    const ABILITIES = [];
+    for (let i = 0; i < DATA[parameter].abilities.length; i++) {
+        ABILITIES.push(" " + capitalizeFirstLetter(DATA[parameter].abilities[i]));
+    }
+
+    REF_ELEMENT.innerHTML = POKEMON_MAIN_STATS(HEIGHT, WEIGHT, ABILITIES);
+
+    console.log("Ta funkcja pokazuje glowne statystyki danego pokemona");
+}
+
+function pokemonShowStats(parameter) {
+    const REF_ELEMENT = document.getElementById(`${parameter}_stats`);
     console.log("Ta funkcja pokazuje statystyki zyciowe danego pokemona");
 }
 
-function pokemonShowEvo() {
+function pokemonShowEvo(parameter) {
+    const REF_ELEMENT = document.getElementById(`${parameter}_stats`);
     console.log("Ta funkcja pokazuje lancuch ewolucji pokemona");
 }
 
@@ -129,6 +144,7 @@ function openDialog(parameter) {
         DIALOGREF.style.justifyContent = "center";
     } else if (parameter != "LOADING") {
         DIALOGREF.innerHTML = DIALOG_WINDOW(parameter);
+        pokemonShowMain(parameter);
         closeDialogListner();
         keyListner();
         pokemonWindowBackgroundColor(DATA[parameter].types, `${parameter}_img`);
@@ -250,4 +266,26 @@ function enableLoadingSpinner() {
 function disableLoadingSpinner() {
     document.getElementById("button_for_more").style.display = "";
     closeDialog();
+}
+
+
+
+function NextPokemon(value) {
+    const result = value + 1;
+
+    if (result >= DATA.length) {
+        return 0;
+    } else {
+        return result;
+    }
+}
+
+function PrevPokemon(value) {
+    const result = value - 1;
+
+    if (result < 0) {
+        return DATA.length - 1;
+    } else {
+        return result;
+    }
 }

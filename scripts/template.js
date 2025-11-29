@@ -28,16 +28,17 @@ const DIALOG_WINDOW = (i) => `
                     </section>
                     <section class="myDialog_sectionNav">
                         <nav>
-                            <li>main</li>
-                            <li>stats</li>
-                            <li>evo chain</li>
+                            <li onclick="pokemonShowMain(${i})">main</li>
+                            <li onclick="pokemonShowStats(${i})">stats</li>
+                            <li onclick="pokemonShowEvo(${i})">evo chain</li>
                         </nav>
                     </section>
-                    <section class="myDialog_sectionStats" id="">
+                    <section class="myDialog_sectionStats" id="${i}_stats">
                     </section>
                 </main>
                 <footer>
-
+                    <img src="./assets/img/LeftArrow.png" alt="vorheriges Pokemon" onclick="openDialog(PrevPokemon(${i}))">
+                    <img src="./assets/img/RightArrow.png" alt="nächstes Pokemon" onclick="openDialog(NextPokemon(${i}))">
                 </footer>
 `;
 
@@ -47,4 +48,29 @@ const BUTTON_TO_LOAD_MORE = (pokemonAmount) => `
 
 const LOADING_IMG = () => `
     <img src="./assets/img/Loading.png" alt="Loading animation" id="myLoadIMG">
+`;
+
+const POKEMON_MAIN_STATS = (HEIGHT, WEIGHT, ABILITIES) => `
+    <table>
+        <tr>
+            <td>Height</td>
+            <td>: ${HEIGHT} cm</td>
+        </tr>
+        <tr>
+            <td>Weight</td>
+            <td>: ${WEIGHT} kg</td>
+        </tr>
+        <tr>
+            <td>Abilities</td>
+            <td>:${ABILITIES}</td>
+        </tr>
+    </table>
+`;
+
+const POKEMON_DETAILED_STATS = () => `
+
+`;
+
+const POKEMON_EVO_CHAIN = () => `
+
 `;
