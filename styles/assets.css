@@ -155,9 +155,6 @@ html {
     align-items: center;
 
     section.myDialog_sectionImg {
-        img {
-            height: 100px;
-        }
 
         div.image {
             display: flex;
@@ -166,6 +163,14 @@ html {
             flex-wrap: nowrap;
             flex-direction: column;
             padding: 25px 30px;
+
+            img {
+                height: 100px;
+            }
+
+            img:hover {
+                transform: scale(1.75);
+            }
         }
 
         div.types {
@@ -188,6 +193,7 @@ html {
 
     section.myDialog_sectionNav {
         width: 100%;
+        margin-bottom: 25px;
 
         nav {
             color: white;
@@ -202,7 +208,6 @@ html {
             text-align: center;
             gap: 1%;
             height: 40px;
-            margin-bottom: 25px;
 
             li {
                 width: 33%;
@@ -226,6 +231,11 @@ html {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        margin-bottom: 25px;
+
+        table {
+            padding-left: 25px;
+        }
     }
 }
 

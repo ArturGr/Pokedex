@@ -1,7 +1,7 @@
 const DATA = [];
-let DIALOGREF;
-let responseAsJson;
-let singlePokemon;
+let DIALOGREF = "";
+let responseAsJson = [];
+let singlePokemon = [];
 let pokemonAmount = 0;
 
 function init() {
@@ -36,26 +36,35 @@ function pokemonShowMain(parameter) {
     }
 
     REF_ELEMENT.innerHTML = POKEMON_MAIN_STATS(HEIGHT, WEIGHT, ABILITIES);
-
-    console.log("Ta funkcja pokazuje glowne statystyki danego pokemona");
+    document.getElementById("pokemonMainStats").style.borderBottom = "solid var(--orange) 3px";
+    document.getElementById("pokemonSecondStats").style.borderBottom = "";
+    document.getElementById("pokemonEvoChain").style.borderBottom = "";
 }
 
 function pokemonShowStats(parameter) {
     const REF_ELEMENT = document.getElementById(`${parameter}_stats`);
+
+
+    REF_ELEMENT.innerHTML = POKEMON_DETAILED_STATS();
+    document.getElementById("pokemonMainStats").style.borderBottom = "";
+    document.getElementById("pokemonSecondStats").style.borderBottom = "solid var(--orange) 3px";
+    document.getElementById("pokemonEvoChain").style.borderBottom = "";
     console.log("Ta funkcja pokazuje statystyki zyciowe danego pokemona");
+
 }
 
 function pokemonShowEvo(parameter) {
     const REF_ELEMENT = document.getElementById(`${parameter}_stats`);
+
+    REF_ELEMENT.innerHTML = POKEMON_EVO_CHAIN();
+    document.getElementById("pokemonMainStats").style.borderBottom = "";
+    document.getElementById("pokemonSecondStats").style.borderBottom = "";
+    document.getElementById("pokemonEvoChain").style.borderBottom = "solid var(--orange) 3px";
     console.log("Ta funkcja pokazuje lancuch ewolucji pokemona");
 }
 
 function search() {
     console.log("Ta odpowiada za wyszukiwanie danego pokemona (minimum 3 znaki, zabezpieczyc przed wstrzykiwaniem kodu JS)");
-}
-
-function save() {
-    console.log("Ta funkcja zapisuje lokalnie dane, zeby po pierwsyzm wczytaniu strony nie trzeba bylo czekac przy ponownym uruchomieniu strony");
 }
 
 async function load(limit, offset) {
@@ -149,7 +158,6 @@ function openDialog(parameter) {
         keyListner();
         pokemonWindowBackgroundColor(DATA[parameter].types, `${parameter}_img`);
         addingPokemonTypeImg(`${parameter}_types`, parameter);
-
     }
     document.body.style.overflow = "clip";
     DIALOGREF.showModal();
@@ -267,8 +275,6 @@ function disableLoadingSpinner() {
     document.getElementById("button_for_more").style.display = "";
     closeDialog();
 }
-
-
 
 function NextPokemon(value) {
     const result = value + 1;

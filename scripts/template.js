@@ -28,9 +28,9 @@ const DIALOG_WINDOW = (i) => `
                     </section>
                     <section class="myDialog_sectionNav">
                         <nav>
-                            <li onclick="pokemonShowMain(${i})">main</li>
-                            <li onclick="pokemonShowStats(${i})">stats</li>
-                            <li onclick="pokemonShowEvo(${i})">evo chain</li>
+                            <li onclick="pokemonShowMain(${i})" id="pokemonMainStats">main</li>
+                            <li onclick="pokemonShowStats(${i})" id="pokemonSecondStats">stats</li>
+                            <li onclick="pokemonShowEvo(${i})" id="pokemonEvoChain">evo chain</li>
                         </nav>
                     </section>
                     <section class="myDialog_sectionStats" id="${i}_stats">
@@ -52,18 +52,20 @@ const LOADING_IMG = () => `
 
 const POKEMON_MAIN_STATS = (HEIGHT, WEIGHT, ABILITIES) => `
     <table>
-        <tr>
-            <td>Height</td>
-            <td>: ${HEIGHT} cm</td>
-        </tr>
-        <tr>
-            <td>Weight</td>
-            <td>: ${WEIGHT} kg</td>
-        </tr>
-        <tr>
-            <td>Abilities</td>
-            <td>:${ABILITIES}</td>
-        </tr>
+        <tbody>
+            <tr>
+                <td>Height</td>
+                <td>: ${HEIGHT} cm</td>
+            </tr>
+            <tr>
+                <td>Weight</td>
+                <td>: ${WEIGHT} kg</td>
+            </tr>
+            <tr>
+                <td>Abilities</td>
+                <td>:${ABILITIES}</td>
+            </tr>
+        </tbody>
     </table>
 `;
 
