@@ -98,7 +98,7 @@ html {
     top: 50%;
     left: 50%;
     width: 550px;
-    height: 550px;
+    height: 600px;
     border-style: solid;
     border-color: var(--white);
     border-radius: 16px;
@@ -235,6 +235,29 @@ html {
 
         table {
             padding-left: 25px;
+            width: 100%;
+
+            tbody {
+                width: 100%;
+
+                tr {
+                    td {
+                        div.progress_bar_background {
+                            height: 10px;
+                            width: 120px;
+                            background-color: dimgrey;
+                            border-radius: 5px;
+
+                            div.progress_bar_value {
+                                height: 10px;
+                                width: 25%;
+                                background-color: var(--white);
+                                border-radius: 5px;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

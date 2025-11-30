@@ -43,14 +43,17 @@ function pokemonShowMain(parameter) {
 
 function pokemonShowStats(parameter) {
     const REF_ELEMENT = document.getElementById(`${parameter}_stats`);
-
-
     REF_ELEMENT.innerHTML = POKEMON_DETAILED_STATS();
+    for (let i = 0; i < DATA[parameter].stats.length; i++) {
+        const NAME = capitalizeFirstLetter(DATA[parameter].stats[i].name);
+        const VALUE = DATA[parameter].stats[i].stat;
+        document.getElementById("tableOfPokemonDetailedStat").innerHTML += POKEMON_DETAILED_STATS_VALUE(NAME, VALUE, i);
+        document.getElementById(`${i}_progress_bar_value`).style.width = `${calculatesPercent(NAME, VALUE)}%`;
+    }
+
     document.getElementById("pokemonMainStats").style.borderBottom = "";
     document.getElementById("pokemonSecondStats").style.borderBottom = "solid var(--orange) 3px";
     document.getElementById("pokemonEvoChain").style.borderBottom = "";
-    console.log("Ta funkcja pokazuje statystyki zyciowe danego pokemona");
-
 }
 
 function pokemonShowEvo(parameter) {
@@ -276,7 +279,7 @@ function disableLoadingSpinner() {
     closeDialog();
 }
 
-function NextPokemon(value) {
+function nextPokemon(value) {
     const result = value + 1;
 
     if (result >= DATA.length) {
@@ -286,12 +289,22 @@ function NextPokemon(value) {
     }
 }
 
-function PrevPokemon(value) {
+function prevPokemon(value) {
     const result = value - 1;
 
     if (result < 0) {
         return DATA.length - 1;
     } else {
         return result;
+    }
+}
+
+function calculatesPercent(NAME, VALUE) {
+    for (let i = 0; i < POWERFULL_POKEMON.length; i++) {
+        if (NAME == capitalizeFirstLetter(POWERFULL_POKEMON[i].stat)) {
+            result = (VALUE / POWERFULL_POKEMON[i].value) * 100;
+            result = parseInt(result);
+            return result;
+        }
     }
 }

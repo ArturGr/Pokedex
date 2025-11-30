@@ -155,3 +155,36 @@ const BACKGROUND_COLOR = [
     "color": "#FFFFFF"
   }
 ]
+
+const POWERFULL_POKEMON = [
+  {
+    "stat": "hp",
+    "name": "eternatus-eternamax",
+    "value": 255
+  },
+  {
+    "stat": "attack",
+    "name": "mewtwo-mega-x",
+    "value": 190
+  },
+  {
+    "stat": "defense",
+    "name": "eternatus-eternamax",
+    "value": 250
+  },
+  {
+    "stat": "special-attack",
+    "name": "zygarde-mega",
+    "value": 216
+  },
+  {
+    "stat": "special-defense",
+    "name": "eternatus-eternamax",
+    "value": 250
+  },
+  {
+    "stat": "speed",
+    "name": "regieleki",
+    "value": 200
+  }
+]

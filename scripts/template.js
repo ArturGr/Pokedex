@@ -37,8 +37,8 @@ const DIALOG_WINDOW = (i) => `
                     </section>
                 </main>
                 <footer>
-                    <img src="./assets/img/LeftArrow.png" alt="vorheriges Pokemon" onclick="openDialog(PrevPokemon(${i}))">
-                    <img src="./assets/img/RightArrow.png" alt="nächstes Pokemon" onclick="openDialog(NextPokemon(${i}))">
+                    <img src="./assets/img/LeftArrow.png" alt="vorheriges Pokemon" onclick="openDialog(prevPokemon(${i}))">
+                    <img src="./assets/img/RightArrow.png" alt="nächstes Pokemon" onclick="openDialog(nextPokemon(${i}))">
                 </footer>
 `;
 
@@ -70,8 +70,24 @@ const POKEMON_MAIN_STATS = (HEIGHT, WEIGHT, ABILITIES) => `
 `;
 
 const POKEMON_DETAILED_STATS = () => `
-
+    <table>
+        <tbody id="tableOfPokemonDetailedStat">
+        </tbody>
+    </table>
 `;
+
+const POKEMON_DETAILED_STATS_VALUE = (name, value, i) => `
+    <tr>
+        <td>${name}</td>
+        <td>${value}</td>
+        <td>
+            <div class="progress_bar_background">
+                <div class="progress_bar_value" id="${i}_progress_bar_value"></div>
+            </div>
+        </td>
+    </tr>
+`;
+
 
 const POKEMON_EVO_CHAIN = () => `
 
