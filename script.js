@@ -3,6 +3,7 @@ let DIALOGREF = "";
 let responseAsJson = [];
 let singlePokemon = [];
 let pokemonAmount = 0;
+let currentPokemonNr = 0;
 
 function init() {
     load(20, 0);
@@ -156,9 +157,11 @@ function openDialog(parameter) {
         DIALOGREF.style.justifyContent = "center";
     } else if (parameter != "LOADING") {
         DIALOGREF.innerHTML = DIALOG_WINDOW(parameter);
+        currentPokemonNr = parameter;
         pokemonShowMain(parameter);
         closeDialogListner();
-        keyListner();
+        removeKeyListner();
+        addKeyListner();
         pokemonWindowBackgroundColor(DATA[parameter].types, `${parameter}_img`);
         addingPokemonTypeImg(`${parameter}_types`, parameter);
     }
@@ -186,25 +189,12 @@ function closeDialogListner() {
     );
 }
 
-function keyListner() {
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-            if (DIALOGREF.open) {
-                closeDialog();
-            }
-        }
+function addKeyListner() {
+    document.addEventListener('keydown', handleKeyDown);
+}
 
-        if (DIALOGREF.open) {
-            if (event.key === 'ArrowLeft') {
-                console.log("Pressed arrow left");
-            }
-            else if (event.key === 'ArrowRight') {
-                console.log("Pressed arrow right");
-
-            }
-        }
-
-    });
+function removeKeyListner() {
+    document.removeEventListener('keydown', handleKeyDown);
 }
 
 function capitalizeFirstLetter(value) {
@@ -308,3 +298,21 @@ function calculatesPercent(NAME, VALUE) {
         }
     }
 }
+
+function handleKeyDown(event) {
+    if (event.key === 'Escape') {
+        if (DIALOGREF.open) {
+            closeDialog();
+        }
+    }
+
+    if (DIALOGREF.open) {
+        if (event.key === 'ArrowLeft') {
+            openDialog(prevPokemon(currentPokemonNr));
+
+        } else if (event.key === 'ArrowRight') {
+            openDialog(nextPokemon(currentPokemonNr));
+
+        }
+    }
+};
