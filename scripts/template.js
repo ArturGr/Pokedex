@@ -21,7 +21,7 @@ const DIALOG_WINDOW = (i) => `
                 <main class="myDialog_main">
                     <section class="myDialog_sectionImg">
                         <div class="image" id="${i}_img">
-                        <img src="${DATA[i].gif}" alt="Image of ${DATA[i].name}">
+                        <img src="${dataGifVeryfication(i)}" alt="Image of ${DATA[i].name}">
                         </div>
                         <div class="types" id="${i}_types">
                         </div>
@@ -76,17 +76,18 @@ const POKEMON_DETAILED_STATS = () => `
     </table>
 `;
 
-const POKEMON_DETAILED_STATS_VALUE = (name, value, i) => `
+const POKEMON_DETAILED_STATS_VALUE = (NAME, i, VALUE, INDEX_IN_DATA) => `
     <tr>
-        <td width="30%">${name}</td>
-        <td width="70%">
-            <div class="progress_bar_background">
-                <div class="progress_bar_value" id="${i}_progress_bar_value"></div>
+        <td width="40%">${capitalizeFirstLetter(NAME)}</td>
+        <td width="100%" class="tooltip" onmouseover="shwoToolTip('${NAME}', ${VALUE}, ${i}, ${INDEX_IN_DATA})" onmouseout="closeToolTip(${i}, ${INDEX_IN_DATA})">
+            <div class="progress_bar_background" id="progress_bar_background_${i}">
+                <div class="progress_bar_value" id="${i}_progress_bar_value">
+                </div>
             </div>
+            <div id="tooltip_${i}"></div>
         </td>
     </tr>
 `;
-
 
 const POKEMON_EVO_CHAIN = () => `
     <div class="evo_chain" id="pokemonEvoChainDiv">
@@ -98,4 +99,11 @@ const POKEMON_EVO_CHAIN_FORM = (url, name, i) => `
         <img src="${url}" alt="${name}">
         <p>${i}. ${name}</p>
     </div>
+`;
+
+const TOOLTIP = (parametr, value, i, indexInDATA) => `
+    <span class="tooltiptext">
+        <p>${capitalizeFirstLetter(parametr)} of ${capitalizeFirstLetter(DATA[indexInDATA].name)} is ${value}.</p>
+        <p>Pokemon with the highest ${parametr} is ${capitalizeFirstLetter(POWERFULL_POKEMON[i].name)} (${POWERFULL_POKEMON[i].value}).</p>
+    </span>
 `;

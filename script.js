@@ -47,12 +47,13 @@ function pokemonShowStats(parameter) {
     const REF_ELEMENT = document.getElementById(`${parameter}_stats`);
     REF_ELEMENT.innerHTML = POKEMON_DETAILED_STATS();
     for (let i = 0; i < DATA[parameter].stats.length; i++) {
-        const NAME = capitalizeFirstLetter(DATA[parameter].stats[i].name);
+        const NAME = DATA[parameter].stats[i].name;
         const VALUE = DATA[parameter].stats[i].stat;
-        document.getElementById("tableOfPokemonDetailedStat").innerHTML += POKEMON_DETAILED_STATS_VALUE(NAME, VALUE, i);
+        const INDEX_IN_DATA = parameter;
+        document.getElementById("tableOfPokemonDetailedStat").innerHTML += POKEMON_DETAILED_STATS_VALUE(NAME, i, VALUE, INDEX_IN_DATA);
         document.getElementById(`${i}_progress_bar_value`).style.width = `${calculatesPercent(NAME, VALUE)}%`;
     }
-
+    document.getElementById(`${parameter}_stats`).style.overflowY = "unset"
     document.getElementById("pokemonMainStats").style.borderBottom = "";
     document.getElementById("pokemonSecondStats").style.borderBottom = "solid var(--orange) 3px";
     document.getElementById("pokemonEvoChain").style.borderBottom = "";
@@ -62,6 +63,7 @@ async function pokemonShowEvo(pokemonID, i) {
     const REF_ELEMENT = document.getElementById(`${i}_stats`);
     REF_ELEMENT.innerHTML = POKEMON_EVO_CHAIN();
     const evolutionNames = await getEvolutionChainNames(pokemonID);
+    document.getElementById(`${i}_stats`).style.overflowY = "auto";
     document.getElementById("pokemonEvoChainDiv").innerHTML = "";
     for (let i = 0; i < evolutionNames.length; i++) {
         const nr = i + 1;
@@ -299,7 +301,7 @@ function prevPokemon(value) {
 
 function calculatesPercent(NAME, VALUE) {
     for (let i = 0; i < POWERFULL_POKEMON.length; i++) {
-        if (NAME == capitalizeFirstLetter(POWERFULL_POKEMON[i].stat)) {
+        if (NAME == POWERFULL_POKEMON[i].stat) {
             result = (VALUE / POWERFULL_POKEMON[i].value) * 100;
             result = parseInt(result);
             return result;
@@ -373,3 +375,20 @@ function getPokemonGif(pokemonID) {
     return GIF_URL;
 }
 
+function shwoToolTip(parametr, value, i, indexInDATA) {
+    const REF = document.getElementById(`tooltip_${i}`);
+    REF.innerHTML += TOOLTIP(parametr, value, i, indexInDATA);
+}
+
+function closeToolTip(i) {
+    const REF = document.getElementById(`tooltip_${i}`);
+    REF.innerHTML = "";
+}
+
+function dataGifVeryfication(i) {
+    if (DATA[i].gif == null) {
+        return DATA[i].foto;
+    } else {
+        return DATA[i].gif;
+    }
+}
