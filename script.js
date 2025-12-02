@@ -5,6 +5,7 @@ let singlePokemon = [];
 let pokemonAmount = 0;
 let currentPokemonNr = 0;
 
+
 function init() {
     load(20, 0);
 }
@@ -57,14 +58,21 @@ function pokemonShowStats(parameter) {
     document.getElementById("pokemonEvoChain").style.borderBottom = "";
 }
 
-function pokemonShowEvo(parameter) {
-    const REF_ELEMENT = document.getElementById(`${parameter}_stats`);
-
+async function pokemonShowEvo(pokemonID, i) {
+    const REF_ELEMENT = document.getElementById(`${i}_stats`);
     REF_ELEMENT.innerHTML = POKEMON_EVO_CHAIN();
+    const evolutionNames = await getEvolutionChainNames(pokemonID);
+    document.getElementById("pokemonEvoChainDiv").innerHTML = "";
+    for (let i = 0; i < evolutionNames.length; i++) {
+        const nr = i + 1;
+        const name = capitalizeFirstLetter(evolutionNames[i]);
+        const currentPokemonID = await getPokemonID(`${name}`)
+        const url = getPokemonPhoto(currentPokemonID);
+        document.getElementById("pokemonEvoChainDiv").innerHTML += POKEMON_EVO_CHAIN_FORM(url, name, nr);
+    }
     document.getElementById("pokemonMainStats").style.borderBottom = "";
     document.getElementById("pokemonSecondStats").style.borderBottom = "";
     document.getElementById("pokemonEvoChain").style.borderBottom = "solid var(--orange) 3px";
-    console.log("Ta funkcja pokazuje lancuch ewolucji pokemona");
 }
 
 function search() {
@@ -117,9 +125,9 @@ function dataImportToArray() {
         "gif": singlePokemon.sprites.other.showdown.front_default,
         "stats": filterStats(singlePokemon.stats),
         "abilities": filterAbilities(singlePokemon.abilities),
-        "types": filterTypes(singlePokemon.types)
-    })
-
+        "types": filterTypes(singlePokemon.types),
+    });
+    singlePokemon = [];
 }
 
 function pokemonBackgrouColorGenerator() {
@@ -316,3 +324,52 @@ function handleKeyDown(event) {
         }
     }
 };
+//do korakty nazwy zmiennych
+async function fetchEvolutionChainUrl(pokemonID) {
+    const speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonID}/`;
+    const response = await fetch(speciesUrl);
+    const data = await response.json();
+    return data.evolution_chain.url;
+}
+//do korakty nazwy zmiennych
+async function fetchAndProcessChain(chainUrl) {
+    if (!chainUrl) return [];
+
+    const evoChainNames = [];
+    const chainResponse = await fetch(chainUrl);
+    const chainData = await chainResponse.json();
+    let currentChain = chainData.chain;
+
+    while (currentChain && currentChain.evolves_to.length <= 1) {
+        evoChainNames.push(currentChain.species.name);
+        if (currentChain.evolves_to.length === 0) break;
+        currentChain = currentChain.evolves_to[0];
+    }
+
+    return evoChainNames;
+}
+//do korakty nazwy zmiennych
+async function getEvolutionChainNames(pokemonID) {
+    const chainUrl = await fetchEvolutionChainUrl(pokemonID);
+    const names = await fetchAndProcessChain(chainUrl);
+    return names;
+}
+
+async function getPokemonID(pokemonName) {
+    const FETCH_URL = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
+    const response = await fetch(FETCH_URL);
+    const FETCHED_DATA = await response.json();
+    const POKEMON_ID = FETCHED_DATA.id;
+    return POKEMON_ID;
+}
+
+function getPokemonPhoto(pokemonID) {
+    const PHOTO_URL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg`
+    return PHOTO_URL;
+}
+
+function getPokemonGif(pokemonID) {
+    const GIF_URL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemonID}.gif`
+    return GIF_URL;
+}
+

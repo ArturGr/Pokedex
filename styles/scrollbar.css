@@ -1,13 +1,17 @@
-html::-webkit-scrollbar {
+html::-webkit-scrollbar,
+section.myDialog_sectionStats::-webkit-scrollbar {
   width: 8px;
+  background: var(--background);
 }
 
-html::-webkit-scrollbar-track {
+html::-webkit-scrollbar-track,
+section.myDialog_sectionStats::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   border-radius: 8px;
 }
 
-html::-webkit-scrollbar-thumb {
+html::-webkit-scrollbar-thumb,
+section.myDialog_sectionStats::-webkit-scrollbar-thumb {
   background: var(--background);
   border-radius: 8px;
 }

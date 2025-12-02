@@ -30,7 +30,7 @@ const DIALOG_WINDOW = (i) => `
                         <nav>
                             <li onclick="pokemonShowMain(${i})" id="pokemonMainStats">main</li>
                             <li onclick="pokemonShowStats(${i})" id="pokemonSecondStats">stats</li>
-                            <li onclick="pokemonShowEvo(${i})" id="pokemonEvoChain">evo chain</li>
+                            <li onclick="pokemonShowEvo(${DATA[i].id}, ${i})" id="pokemonEvoChain">evo chain</li>
                         </nav>
                     </section>
                     <section class="myDialog_sectionStats" id="${i}_stats">
@@ -54,8 +54,8 @@ const POKEMON_MAIN_STATS = (HEIGHT, WEIGHT, ABILITIES) => `
     <table>
         <tbody>
             <tr>
-                <td>Height</td>
-                <td>: ${HEIGHT} cm</td>
+                <td width="20%">Height</td>
+                <td width="80%">: ${HEIGHT} cm</td>
             </tr>
             <tr>
                 <td>Weight</td>
@@ -78,9 +78,8 @@ const POKEMON_DETAILED_STATS = () => `
 
 const POKEMON_DETAILED_STATS_VALUE = (name, value, i) => `
     <tr>
-        <td>${name}</td>
-        <td>${value}</td>
-        <td>
+        <td width="30%">${name}</td>
+        <td width="70%">
             <div class="progress_bar_background">
                 <div class="progress_bar_value" id="${i}_progress_bar_value"></div>
             </div>
@@ -90,5 +89,13 @@ const POKEMON_DETAILED_STATS_VALUE = (name, value, i) => `
 
 
 const POKEMON_EVO_CHAIN = () => `
+    <div class="evo_chain" id="pokemonEvoChainDiv">
+    </div>
+`;
 
+const POKEMON_EVO_CHAIN_FORM = (url, name, i) => `
+    <div class="evo_chain_contPic">
+        <img src="${url}" alt="${name}">
+        <p>${i}. ${name}</p>
+    </div>
 `;
