@@ -2,73 +2,99 @@ html {
     body {
         main {
             div.wrapper {
-                div.pokemonRender {
+                div.pokemonList {
                     width: 100%;
-                    height: 305px;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, 200px);
+                    gap: 25px;
+                    align-items: center;
+                    justify-items: center;
+                    justify-content: center;
 
-                    div.pokemonHeader {
-                        height: 60px;
-                        background-color: var(--header);
-                        border-radius: 16px 16px 0px 0px;
-                        display: flex;
-                        flex-direction: row;
-                        flex-wrap: nowrap;
-                        justify-content: flex-start;
-                        align-items: center;
-                        gap: 10px;
+                    h2 {
+                        color: var(--white);
+                        text-align: center;
+                    }
 
-                        h2 {
-                            color: var(--white);
-                            text-align: left;
-                            margin-left: 10px;
+                    div.pokemonRender {
+                        width: 100%;
+                        height: 305px;
+
+                        div.pokemonHeader {
+                            height: 60px;
+                            background-color: var(--header);
+                            border-radius: 16px 16px 0px 0px;
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: nowrap;
+                            justify-content: flex-start;
+                            align-items: center;
+                            gap: 10px;
+
+                            h2 {
+                                color: var(--white);
+                                text-align: left;
+                                margin-left: 10px;
+                            }
+                        }
+
+                        div.pokemonMain {
+                            height: 150px;
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: nowrap;
+                            justify-content: center;
+                            align-items: center;
+                            background-color: white;
+                            padding: 15px 0px;
+
+                            img {
+                                height: 100%;
+                                max-width: 200px;
+                            }
+
+
+                            img:hover {
+                                -webkit-filter: drop-shadow(8px -8px 10px var(--black));
+                                filter: drop-shadow(8px -8px 10px var(--black));
+                                transform: scale(1.25);
+                            }
+                        }
+
+                        div.pokemonFooter {
+                            height: 90px;
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: wrap;
+                            gap: 10px;
+                            align-content: center;
+                            justify-content: space-evenly;
+                            align-items: center;
+                            background-color: var(--header);
+                            border-radius: 0px 0px 16px 16px;
+
+                            img {
+                                height: 30px;
+                            }
                         }
                     }
 
-                    div.pokemonMain {
-                        height: 150px;
-                        display: flex;
-                        flex-direction: row;
-                        flex-wrap: nowrap;
-                        justify-content: center;
-                        align-items: center;
-                        background-color: white;
-                        padding: 15px 0px;
-
-                        img {
-                            height: 100%;
-                            max-width: 200px;
-                        }
-
-
-                        img:hover {
-                            -webkit-filter: drop-shadow(8px -8px 10px var(--black));
-                            filter: drop-shadow(8px -8px 10px var(--black));
-                            transform: scale(1.25);
-                        }
+                    div.pokemonRender:hover {
+                        border: solid var(--white);
+                        border-radius: 16px;
+                        cursor: pointer;
                     }
 
-                    div.pokemonFooter {
-                        height: 90px;
-                        display: flex;
-                        flex-direction: row;
-                        flex-wrap: wrap;
-                        gap: 10px;
-                        align-content: center;
-                        justify-content: space-evenly;
-                        align-items: center;
-                        background-color: var(--header);
-                        border-radius: 0px 0px 16px 16px;
-
-                        img {
-                            height: 30px;
-                        }
-                    }
                 }
 
-                div.pokemonRender:hover {
-                    border: solid var(--white);
-                    border-radius: 16px;
-                    cursor: pointer;
+                div.div_button_for_more {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    align-items: center;
+                    padding-top: 25px;
                 }
             }
         }
@@ -76,6 +102,24 @@ html {
 }
 
 .button_for_more {
+    height: 50px;
+    align-content: center;
+    align-items: center;
+    border: solid var(--white);
+    background: var(--header);
+    color: var(--white);
+    border-radius: 20px;
+    width: 100px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .2s;
+}
+
+.button_for_more:hover {
+    transform: scale(1.25);
+}
+
+.button_for_search {
     height: 50px;
     align-content: center;
     align-items: center;
@@ -89,8 +133,22 @@ html {
     transition: transform .2s;
 }
 
-.button_for_more:hover {
-    transform: scale(1.25);
+.button_for_search:hover {
+    border: solid var(--orange);
+}
+
+.searchField {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    gap: 10px;
+
+    input {
+        min-width: 230px;
+    }
 }
 
 .opened {

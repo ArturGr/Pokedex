@@ -30,13 +30,9 @@ html {
             padding: 25px 140px;
             max-width: 1440px;
             width: 100%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, 200px);
-            gap: 25px;
-            align-items: center;
-            justify-items: center;
-            justify-content: center;
-            background-color: var(--background);
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
         }
     }
 
@@ -134,7 +130,7 @@ footer {
     }
 
     header {
-        height: 112px;
+        height: 130px;
         padding: 0px 24px;
 
         div.wrapper {
@@ -167,7 +163,7 @@ footer {
     }
 
     header {
-        height: 64px;
+        height: 130px;
         padding: 0px 10px;
 
         div.wrapper {

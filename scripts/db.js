@@ -188,3 +188,10 @@ const POWERFULL_POKEMON = [
     "value": 200
   }
 ]
+
+const MESSAGE = [
+  {
+    "no_search_results": "<h2>Pokémon not found in data. Please enter a different name or load more Pokémon.</h2>",
+    "too_short_Pokemon_name": "<h2>The Pokemon name you entered is too short. Please enter a longer name or load more Pokemon.</h2>"
+  }
+]

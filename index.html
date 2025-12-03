@@ -23,16 +23,21 @@
             </div>
             <div class="pokemonMainWebHeader">
                 <h1>Pokedex</h1>
-                <form action="">
-                    <label for="pokemonSearching"></label>
-                    <Input type="search" id="pokemonSearching" placeholder="Type a Pokemon name"></Input>
-                </form>
+                <div class="searchField">
+                    <Input type="text" id="pokemonSearching" placeholder="Type a Pokemon name (min. 3 letter)"
+                        minlength="3"></Input>
+                    <button onclick="search()" class="button_for_search">Search</button>
+                </div>
             </div>
         </div>
     </header>
     <main>
         <div class="wrapper" id="main_wrapper">
-
+            <div class="pokemonList" id="pokemonList">
+            </div>
+            <div class="div_button_for_more">
+                <button class="button_for_more" id="button_for_more" onclick="load()">Load more</button>
+            </div>
         </div>
     </main>
     <dialog id="myDialog"></dialog>
