@@ -142,6 +142,12 @@ footer {
     overflow-y: unset !important;
 }
 
+.disabledNav {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 @media (min-width: 768px) and (max-width: 1280.9px) {
 
     html {

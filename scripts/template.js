@@ -1,13 +1,13 @@
 const POKEMON_FIRST_WINDOW = (i, name) => `
-            <div class="pokemonRender" id="pokemonRender${RENDERED_ARRAY[i].id}" onclick="pokemonShowWindowStats(${i})">
+            <div class="pokemonRender" id="pokemonRender${renderedArray[i].id}" onclick="pokemonShowWindowStats(${i})">
                 <div class="pokemonHeader">
-                    <h2>#${RENDERED_ARRAY[i].id}</h2>
+                    <h2>#${renderedArray[i].id}</h2>
                     <h2>${name}</h2>
                 </div>
-                <div class="pokemonMain" id="pokemonMain${RENDERED_ARRAY[i].id}">
-                    <img src="${RENDERED_ARRAY[i].foto}" alt="Image of ${RENDERED_ARRAY[i].name}">
+                <div class="pokemonMain" id="pokemonMain${renderedArray[i].id}">
+                    <img src="${renderedArray[i].foto}" alt="Image of ${renderedArray[i].name}">
                 </div>
-                <div class="pokemonFooter" id="pokemonImgFooter${RENDERED_ARRAY[i].id}">
+                <div class="pokemonFooter" id="pokemonImgFooter${renderedArray[i].id}">
 
                 </div>
             </div>
@@ -15,14 +15,14 @@ const POKEMON_FIRST_WINDOW = (i, name) => `
 
 const DIALOG_WINDOW = (i) => `
                 <header>
-                    <h2>#${RENDERED_ARRAY[i].id}</h2>
-                    <h2>${capitalizeFirstLetter(RENDERED_ARRAY[i].name)}</h2>
+                    <h2>#${renderedArray[i].id}</h2>
+                    <h2>${capitalizeFirstLetter(renderedArray[i].name)}</h2>
                     <img src="./assets/img/Close.png" alt="Close" onclick="closeDialog()">
                 </header>
                 <main class="myDialog_main">
                     <section class="myDialog_sectionImg">
                         <div class="image" id="${i}_img">
-                        <img src="${dataGifVeryfication(i)}" alt="Image of ${RENDERED_ARRAY[i].name}">
+                        <img src="${dataGifVeryfication(i)}" alt="Image of ${renderedArray[i].name}">
                         </div>
                         <div class="types" id="${i}_types">
                         </div>
@@ -31,7 +31,7 @@ const DIALOG_WINDOW = (i) => `
                         <nav>
                             <li onclick="pokemonShowMain(${i})" id="pokemonMainStats">main</li>
                             <li onclick="pokemonShowStats(${i})" id="pokemonSecondStats">stats</li>
-                            <li onclick="pokemonShowEvo(${RENDERED_ARRAY[i].id}, ${i})" id="pokemonEvoChain">evo chain</li>
+                            <li onclick="pokemonShowEvo(${renderedArray[i].id}, ${i})" id="pokemonEvoChain">evo chain</li>
                         </nav>
                     </section>
                     <section class="myDialog_sectionStats" id="${i}_stats">
@@ -108,7 +108,7 @@ const POKEMON_EVO_CHAIN_FORM = (url, name, i) => `
 
 const TOOLTIP = (parametr, value, i, indexInDATA) => `
     <span class="tooltiptext">
-        <p>${capitalizeFirstLetter(parametr)} of ${capitalizeFirstLetter(RENDERED_ARRAY[indexInDATA].name)} is ${value}.</p>
+        <p>${capitalizeFirstLetter(parametr)} of ${capitalizeFirstLetter(renderedArray[indexInDATA].name)} is ${value}.</p>
         <p>Pokemon with the highest ${parametr} is ${capitalizeFirstLetter(POWERFULL_POKEMON[i].name)} (${POWERFULL_POKEMON[i].value}).</p>
     </span>
 `;

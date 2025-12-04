@@ -1,7 +1,7 @@
 const DATA = [];
 const LIMIT = 20;
-let DATA_FOUND = [];
-let RENDERED_ARRAY = [];
+let dataFound = [];
+let renderedArray = [];
 let dialogRef = "";
 let responseAsJson = [];
 let singlePokemon = [];
@@ -18,21 +18,21 @@ function pokemonMainRender(arr) {
     MAIN_POKE_WINDOW_REF.classList.add("pokemonListGrid");
     MAIN_POKE_WINDOW_REF.classList.remove("pokemonListFlex");
     MAIN_POKE_WINDOW_REF.innerHTML = "";
-    for (let i = 0; i < RENDERED_ARRAY.length; i++) {
-        const name = capitalizeFirstLetter(RENDERED_ARRAY[i].name);
+    for (let i = 0; i < renderedArray.length; i++) {
+        const name = capitalizeFirstLetter(renderedArray[i].name);
         MAIN_POKE_WINDOW_REF.innerHTML += POKEMON_FIRST_WINDOW(i, name);
-        addingPokemonTypeImg(`pokemonImgFooter${RENDERED_ARRAY[i].id}`, i);
+        addingPokemonTypeImg(`pokemonImgFooter${renderedArray[i].id}`, i);
     }
-    pokemonBackgrouColorGenerator(RENDERED_ARRAY);
+    pokemonBackgrouColorGenerator(renderedArray);
     disableLoadingSpinner();
 }
 
 function renderArraySet(arr) {
     if (arr == null) {
-        RENDERED_ARRAY = DATA;
+        renderedArray = DATA;
         document.getElementById("pokemonSearching").value = "";
     } else {
-        RENDERED_ARRAY = arr;
+        renderedArray = arr;
     }
 }
 
@@ -43,10 +43,10 @@ function pokemonShowWindowStats(i) {
 
 function pokemonShowMain(parameter) {
     const REF_ELEMENT = document.getElementById(`${parameter}_stats`);
-    const HEIGHT = RENDERED_ARRAY[parameter].height * 10;
-    const WEIGHT = RENDERED_ARRAY[parameter].weight / 10;
+    const HEIGHT = renderedArray[parameter].height * 10;
+    const WEIGHT = renderedArray[parameter].weight / 10;
     const ABILITIES = [];
-    RENDERED_ARRAY[parameter].abilities.forEach(element => { ABILITIES.push(" " + capitalizeFirstLetter(element)); });
+    renderedArray[parameter].abilities.forEach(element => { ABILITIES.push(" " + capitalizeFirstLetter(element)); });
     REF_ELEMENT.innerHTML = POKEMON_MAIN_STATS(HEIGHT, WEIGHT, ABILITIES);
     REF_ELEMENT.classList.add('forceRow');
     setBorderBottomNavStats("pokemonMainStats");
@@ -63,9 +63,9 @@ function pokemonShowStats(parameter) {
 }
 
 function statsGenerator(parameter) {
-    for (let i = 0; i < RENDERED_ARRAY[parameter].stats.length; i++) {
-        const NAME = RENDERED_ARRAY[parameter].stats[i].name;
-        const VALUE = RENDERED_ARRAY[parameter].stats[i].stat;
+    for (let i = 0; i < renderedArray[parameter].stats.length; i++) {
+        const NAME = renderedArray[parameter].stats[i].name;
+        const VALUE = renderedArray[parameter].stats[i].stat;
         const INDEX_IN_DATA = parameter;
         document.getElementById("tableOfPokemonDetailedStat").innerHTML += POKEMON_DETAILED_STATS_VALUE(NAME, i, VALUE, INDEX_IN_DATA);
         document.getElementById(`${i}_progress_bar_value`).style.width = `${calculatesPercent(NAME, VALUE)}%`;
@@ -78,6 +78,7 @@ function pokemonShowEvo(pokemonID, i) {
     REF_ELEMENT.classList.remove("statsContainerNoScroll");
     REF_ELEMENT.classList.add("statsContainerAutoScroll");
     document.getElementById("pokemonEvoChainDiv").innerHTML = "";
+    enableEvoChainLoading();
     pokemonShowEvoForm(pokemonID);
     REF_ELEMENT.classList.remove('forceRow');
     setBorderBottomNavStats("pokemonEvoChain");
@@ -85,16 +86,14 @@ function pokemonShowEvo(pokemonID, i) {
 
 async function pokemonShowEvoForm(pokemonID) {
     const EVOLUTION_NAMES = await getEvolutionChainNames(pokemonID);
-    const EVOLUTION_FORMS = [];
     for (let i = 0; i < EVOLUTION_NAMES.length; i++) {
-
         const NR = i + 1;
         const NAME = capitalizeFirstLetter(EVOLUTION_NAMES[i]);
         const CURRENT_POKEMON_ID = await getPokemonID(`${NAME}`)
         const URL = getPokemonPhoto(CURRENT_POKEMON_ID);
-
         document.getElementById("pokemonEvoChainDiv").innerHTML += POKEMON_EVO_CHAIN_FORM(URL, NAME, NR);
     }
+    disableEvoChainLoading();
 }
 
 function setBorderBottomNavStats(elementID) {
@@ -121,9 +120,8 @@ function search() {
 
 function inputHaveTooLittleLetters() {
     const POKEMON_LIST_REF = document.getElementById("pokemonList");
-    pokemonMainRender(DATA_FOUND);
-    DATA_FOUND = [];
-    //    POKEMON_LIST_REF.classList.remove("pokemonListGrid");
+    pokemonMainRender(dataFound);
+    dataFound = [];
     POKEMON_LIST_REF.classList.add("pokemonListFlex");
     POKEMON_LIST_REF.innerHTML = MESSAGE[0].too_short_Pokemon_name;
     POKEMON_LIST_REF.innerHTML += BUTTON_TO_BACK();
@@ -131,9 +129,9 @@ function inputHaveTooLittleLetters() {
 
 function searchResult(searchChar) {
     const POKEMON_LIST_REF = document.getElementById("pokemonList");
-    DATA_FOUND = DATA.filter((element) => element.name.includes(searchChar));
-    pokemonMainRender(DATA_FOUND);
-    if (DATA_FOUND.length == 0) {
+    dataFound = DATA.filter((element) => element.name.includes(searchChar));
+    pokemonMainRender(dataFound);
+    if (dataFound.length == 0) {
         POKEMON_LIST_REF.classList.add("pokemonListFlex");
         POKEMON_LIST_REF.innerHTML = MESSAGE[0].no_search_results;
     }
@@ -235,7 +233,7 @@ function openDialogWithPokemonStats(parameter) {
     closeDialogListner();
     removeKeyListner();
     addKeyListner();
-    pokemonWindowBackgroundColor(RENDERED_ARRAY[parameter].types, `${parameter}_img`);
+    pokemonWindowBackgroundColor(renderedArray[parameter].types, `${parameter}_img`);
     addingPokemonTypeImg(`${parameter}_types`, parameter);
     navArrowsHide();
 }
@@ -243,7 +241,7 @@ function openDialogWithPokemonStats(parameter) {
 function navArrowsHide() {
     const LEFT_ARROW_REF = document.getElementById("arrowLeft");
     const RIGHT_ARROW_REF = document.getElementById("arrowRight");
-    if (RENDERED_ARRAY.length == 1) {
+    if (renderedArray.length == 1) {
         LEFT_ARROW_REF.classList.add("hidden");
         RIGHT_ARROW_REF.classList.add("hidden");
     } else {
@@ -327,10 +325,10 @@ function typeImgSearch(type) {
 
 function addingPokemonTypeImg(idElement, index) {
     const POKEMON_TYPE_IMG_REF = document.getElementById(`${idElement}`);
-    const NUMBER_OF_TYPES = RENDERED_ARRAY[index].types.length;
+    const NUMBER_OF_TYPES = renderedArray[index].types.length;
 
     for (let i = 0; i < NUMBER_OF_TYPES; i++) {
-        POKEMON_TYPE_IMG_REF.innerHTML += `<img src="${typeImgSearch(RENDERED_ARRAY[index].types[i])}" alt="">`
+        POKEMON_TYPE_IMG_REF.innerHTML += `<img src="${typeImgSearch(renderedArray[index].types[i])}" alt="">`
     }
 }
 
@@ -349,7 +347,7 @@ function disableLoadingSpinner() {
 function nextPokemon(value) {
     const result = value + 1;
 
-    if (result >= RENDERED_ARRAY.length) {
+    if (result >= renderedArray.length) {
         return 0;
     } else {
         return result;
@@ -360,7 +358,7 @@ function prevPokemon(value) {
     const result = value - 1;
 
     if (result < 0) {
-        return RENDERED_ARRAY.length - 1;
+        return renderedArray.length - 1;
     } else {
         return result;
     }
@@ -448,9 +446,23 @@ function closeToolTip(i) {
 }
 
 function dataGifVeryfication(i) {
-    if (RENDERED_ARRAY[i].gif == null) {
-        return RENDERED_ARRAY[i].foto;
+    if (renderedArray[i].gif == null) {
+        return renderedArray[i].foto;
     } else {
-        return RENDERED_ARRAY[i].gif;
+        return renderedArray[i].gif;
     }
+}
+
+function enableEvoChainLoading() {
+    document.getElementById("pokemonMainStats").classList.add("disabledNav");
+    document.getElementById("pokemonSecondStats").classList.add("disabledNav");
+    document.getElementById("pokemonEvoChain").classList.add("disabledNav");
+    document.getElementById("pokemonEvoChainDiv").innerHTML = LOADING_IMG();
+}
+
+function disableEvoChainLoading() {
+    document.getElementById("pokemonMainStats").classList.remove("disabledNav");
+    document.getElementById("pokemonSecondStats").classList.remove("disabledNav");
+    document.getElementById("pokemonEvoChain").classList.remove("disabledNav");
+    document.getElementById("myLoadIMG").remove();
 }
