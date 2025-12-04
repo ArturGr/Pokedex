@@ -438,7 +438,7 @@ html {
             }
         }
 
-        .myDialog_sectionStats.force-row {
+        .myDialog_sectionStats.forceRow {
             flex-direction: row !important;
         }
     }

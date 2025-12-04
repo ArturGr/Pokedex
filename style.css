@@ -115,20 +115,20 @@ footer {
     }
 }
 
-.pokemon-list-grid {
+.pokemonListGrid {
     display: grid !important;
     flex-direction: initial !important;
 }
 
-.active-nav-stats {
+.activeNavStats {
     border-bottom: solid var(--orange) 3px !important;
 }
 
-.stats-container-auto-scroll {
+.statsContainerAutoScroll {
     overflow-y: auto !important;
 }
 
-.stats-container-no-scroll {
+.statsContainerNoScroll {
     overflow-y: unset !important;
 }
 

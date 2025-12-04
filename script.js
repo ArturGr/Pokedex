@@ -20,7 +20,7 @@ function pokemonMainRender(arr) {
     } else {
         RENDERED_ARRAY = arr;
     }
-    MAIN_POKE_WINDOW_REF.classList.add("pokemon-list-grid");
+    MAIN_POKE_WINDOW_REF.classList.add("pokemonListGrid");
     MAIN_POKE_WINDOW_REF.innerHTML = "";
     for (let i = 0; i < RENDERED_ARRAY.length; i++) {
         const name = capitalizeFirstLetter(RENDERED_ARRAY[i].name);
@@ -43,7 +43,7 @@ function pokemonShowMain(parameter) {
     const ABILITIES = [];
     RENDERED_ARRAY[parameter].abilities.forEach(element => { ABILITIES.push(" " + capitalizeFirstLetter(element)); });
     REF_ELEMENT.innerHTML = POKEMON_MAIN_STATS(HEIGHT, WEIGHT, ABILITIES);
-    REF_ELEMENT.classList.add('force-row');
+    REF_ELEMENT.classList.add('forceRow');
     setBorderBottomNavStats("pokemonMainStats");
 }
 
@@ -57,20 +57,20 @@ function pokemonShowStats(parameter) {
         document.getElementById("tableOfPokemonDetailedStat").innerHTML += POKEMON_DETAILED_STATS_VALUE(NAME, i, VALUE, INDEX_IN_DATA);
         document.getElementById(`${i}_progress_bar_value`).style.width = `${calculatesPercent(NAME, VALUE)}%`;
     }
-    REF_ELEMENT.classList.remove("stats-container-auto-scroll");
-    REF_ELEMENT.classList.add("stats-container-no-scroll");
-    REF_ELEMENT.classList.remove('force-row');
+    REF_ELEMENT.classList.remove("statsContainerAutoScroll");
+    REF_ELEMENT.classList.add("statsContainerNoScroll");
+    REF_ELEMENT.classList.remove('forceRow');
     setBorderBottomNavStats("pokemonSecondStats");
 }
 
 function pokemonShowEvo(pokemonID, i) {
     const REF_ELEMENT = document.getElementById(`${i}_stats`);
     REF_ELEMENT.innerHTML = POKEMON_EVO_CHAIN();
-    REF_ELEMENT.classList.remove("stats-container-no-scroll");
-    REF_ELEMENT.classList.add("stats-container-auto-scroll");
+    REF_ELEMENT.classList.remove("statsContainerNoScroll");
+    REF_ELEMENT.classList.add("statsContainerAutoScroll");
     document.getElementById("pokemonEvoChainDiv").innerHTML = "";
     pokemonShowEvoForm(pokemonID)
-    REF_ELEMENT.classList.remove('force-row');
+    REF_ELEMENT.classList.remove('forceRow');
     setBorderBottomNavStats("pokemonEvoChain");
 }
 
@@ -90,10 +90,10 @@ function setBorderBottomNavStats(elementID) {
     const MAIN_STATS = document.getElementById("pokemonMainStats");
     const SECOND_STATS = document.getElementById("pokemonSecondStats");
     const EVO_CHAIN = document.getElementById("pokemonEvoChain");
-    MAIN_STATS.classList.remove("active-nav-stats");
-    SECOND_STATS.classList.remove("active-nav-stats");
-    EVO_CHAIN.classList.remove("active-nav-stats");
-    document.getElementById(`${elementID}`).classList.add("active-nav-stats");
+    MAIN_STATS.classList.remove("activeNavStats");
+    SECOND_STATS.classList.remove("activeNavStats");
+    EVO_CHAIN.classList.remove("activeNavStats");
+    document.getElementById(`${elementID}`).classList.add("activeNavStats");
 
 }
 
