@@ -120,6 +120,16 @@ footer {
     flex-direction: initial !important;
 }
 
+.pokemonListFlex {
+    width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 25px;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
 .activeNavStats {
     border-bottom: solid var(--orange) 3px !important;
 }

@@ -14,13 +14,9 @@ function init() {
 
 function pokemonMainRender(arr) {
     const MAIN_POKE_WINDOW_REF = document.getElementById("pokemonList");
-    if (arr == null) {
-        RENDERED_ARRAY = DATA;
-        document.getElementById("pokemonSearching").value = "";
-    } else {
-        RENDERED_ARRAY = arr;
-    }
+    renderArraySet(arr);
     MAIN_POKE_WINDOW_REF.classList.add("pokemonListGrid");
+    MAIN_POKE_WINDOW_REF.classList.remove("pokemonListFlex");
     MAIN_POKE_WINDOW_REF.innerHTML = "";
     for (let i = 0; i < RENDERED_ARRAY.length; i++) {
         const name = capitalizeFirstLetter(RENDERED_ARRAY[i].name);
@@ -29,6 +25,15 @@ function pokemonMainRender(arr) {
     }
     pokemonBackgrouColorGenerator(RENDERED_ARRAY);
     disableLoadingSpinner();
+}
+
+function renderArraySet(arr) {
+    if (arr == null) {
+        RENDERED_ARRAY = DATA;
+        document.getElementById("pokemonSearching").value = "";
+    } else {
+        RENDERED_ARRAY = arr;
+    }
 }
 
 function pokemonShowWindowStats(i) {
@@ -50,6 +55,14 @@ function pokemonShowMain(parameter) {
 function pokemonShowStats(parameter) {
     const REF_ELEMENT = document.getElementById(`${parameter}_stats`);
     REF_ELEMENT.innerHTML = POKEMON_DETAILED_STATS();
+    statsGenerator(parameter);
+    REF_ELEMENT.classList.remove("statsContainerAutoScroll");
+    REF_ELEMENT.classList.add("statsContainerNoScroll");
+    REF_ELEMENT.classList.remove('forceRow');
+    setBorderBottomNavStats("pokemonSecondStats");
+}
+
+function statsGenerator(parameter) {
     for (let i = 0; i < RENDERED_ARRAY[parameter].stats.length; i++) {
         const NAME = RENDERED_ARRAY[parameter].stats[i].name;
         const VALUE = RENDERED_ARRAY[parameter].stats[i].stat;
@@ -57,10 +70,6 @@ function pokemonShowStats(parameter) {
         document.getElementById("tableOfPokemonDetailedStat").innerHTML += POKEMON_DETAILED_STATS_VALUE(NAME, i, VALUE, INDEX_IN_DATA);
         document.getElementById(`${i}_progress_bar_value`).style.width = `${calculatesPercent(NAME, VALUE)}%`;
     }
-    REF_ELEMENT.classList.remove("statsContainerAutoScroll");
-    REF_ELEMENT.classList.add("statsContainerNoScroll");
-    REF_ELEMENT.classList.remove('forceRow');
-    setBorderBottomNavStats("pokemonSecondStats");
 }
 
 function pokemonShowEvo(pokemonID, i) {
@@ -84,7 +93,6 @@ async function pokemonShowEvoForm(pokemonID) {
         document.getElementById("pokemonEvoChainDiv").innerHTML += POKEMON_EVO_CHAIN_FORM(URL, NAME, NR);
     }
 }
-
 
 function setBorderBottomNavStats(elementID) {
     const MAIN_STATS = document.getElementById("pokemonMainStats");
@@ -112,8 +120,8 @@ function inputHaveTooLittleLetters() {
     const POKEMON_LIST_REF = document.getElementById("pokemonList");
     pokemonMainRender(DATA_FOUND);
     DATA_FOUND = [];
-    POKEMON_LIST_REF.style.display = "flex";
-    POKEMON_LIST_REF.style.flexDirection = "column";
+    //    POKEMON_LIST_REF.classList.remove("pokemonListGrid");
+    POKEMON_LIST_REF.classList.add("pokemonListFlex");
     POKEMON_LIST_REF.innerHTML = MESSAGE[0].too_short_Pokemon_name;
     POKEMON_LIST_REF.innerHTML += BUTTON_TO_BACK();
 }
@@ -123,8 +131,7 @@ function searchResult(searchChar) {
     DATA_FOUND = DATA.filter((element) => element.name.includes(searchChar));
     pokemonMainRender(DATA_FOUND);
     if (DATA_FOUND.length == 0) {
-        POKEMON_LIST_REF.style.display = "flex";
-        POKEMON_LIST_REF.style.flexDirection = "column";
+        POKEMON_LIST_REF.classList.add("pokemonListFlex");
         POKEMON_LIST_REF.innerHTML = MESSAGE[0].no_search_results;
     }
     POKEMON_LIST_REF.innerHTML += BUTTON_TO_BACK();
@@ -141,7 +148,6 @@ async function load() {
         responseAsJson = responseAsJson.results;
         pokemonAmount += responseAsJson.length;
         loadSinglePokemon();
-
         return;
     } catch (error) {
         console.error("Data could not be retrieved:", error);
@@ -360,14 +366,12 @@ function handleKeyDown(event) {
             closeDialog();
         }
     }
-
     if (dialogRef.open) {
         if (event.key === 'ArrowLeft') {
             openDialog(prevPokemon(currentPokemonNr));
 
         } else if (event.key === 'ArrowRight') {
             openDialog(nextPokemon(currentPokemonNr));
-
         }
     }
 }
@@ -381,18 +385,15 @@ async function fetchEvolutionChainUrl(pokemonID) {
 
 async function fetchAndProcessChain(chainUrl) {
     if (!chainUrl) return [];
-
     const EVO_CHAIN_NAMES = [];
     const CHAIN_RESPONSE = await fetch(chainUrl);
     const CHAIN_DATA = await CHAIN_RESPONSE.json();
     let currentChain = CHAIN_DATA.chain;
-
     while (currentChain && (currentChain.evolves_to.length <= 1)) {
         EVO_CHAIN_NAMES.push(currentChain.species.name);
         if (currentChain.evolves_to.length === 0) break;
         currentChain = currentChain.evolves_to[0];
     }
-
     return EVO_CHAIN_NAMES;
 }
 
