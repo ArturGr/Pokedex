@@ -178,6 +178,15 @@ html {
         align-items: center;
         border-radius: 16px 16px 0px 0px;
         gap: 10px;
+
+        img {
+            cursor: pointer;
+            width: 25px;
+        }
+
+        img:hover {
+            transform: scale(1.1);
+        }
     }
 
     footer {
@@ -340,7 +349,7 @@ html {
                 gap: 10px;
 
                 img {
-                    height: 100px;
+                    height: 85px;
                 }
             }
         }
@@ -416,7 +425,7 @@ html {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 560px) {
 
     .myDialog_main {
         section.myDialog_sectionStats {

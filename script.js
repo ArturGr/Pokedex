@@ -391,8 +391,9 @@ async function fetchAndProcessChain(chainUrl) {
     const CHAIN_RESPONSE = await fetch(chainUrl);
     const CHAIN_DATA = await CHAIN_RESPONSE.json();
     let currentChain = CHAIN_DATA.chain;
+    console.log(currentChain);
 
-    while (currentChain && currentChain.evolves_to.length <= 1) {
+    while (currentChain && (currentChain.evolves_to.length <= 1)) {
         EVO_CHAIN_NAMES.push(currentChain.species.name);
         if (currentChain.evolves_to.length === 0) break;
         currentChain = currentChain.evolves_to[0];

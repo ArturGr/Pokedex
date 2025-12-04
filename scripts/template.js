@@ -17,6 +17,7 @@ const DIALOG_WINDOW = (i) => `
                 <header>
                     <h2>#${RENDERED_ARRAY[i].id}</h2>
                     <h2>${capitalizeFirstLetter(RENDERED_ARRAY[i].name)}</h2>
+                    <img src="./assets/img/Close.png" alt="Close" onclick="closeDialog()">
                 </header>
                 <main class="myDialog_main">
                     <section class="myDialog_sectionImg">
