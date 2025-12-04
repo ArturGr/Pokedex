@@ -1,54 +1,57 @@
 const POKEMON_FIRST_WINDOW = (i, name) => `
-            <div class="pokemonRender" id="pokemonRender${renderedArray[i].id}" onclick="pokemonShowWindowStats(${i})">
-                <div class="pokemonHeader">
-                    <h2>#${renderedArray[i].id}</h2>
-                    <h2>${name}</h2>
-                </div>
-                <div class="pokemonMain" id="pokemonMain${renderedArray[i].id}">
-                    <img src="${renderedArray[i].foto}" alt="Image of ${renderedArray[i].name}">
-                </div>
-                <div class="pokemonFooter" id="pokemonImgFooter${renderedArray[i].id}">
-
-                </div>
-            </div>
+    <div class="pokemonRender" id="pokemonRender${renderedArray[i].id}" onclick="pokemonShowWindowStats(${i})">
+        <div class="pokemonHeader">
+            <h2>#${renderedArray[i].id}</h2>
+            <h2>${name}</h2>
+        </div>
+        <div class="pokemonMain" id="pokemonMain${renderedArray[i].id}">
+            <img src="${renderedArray[i].foto}" alt="Image of ${renderedArray[i].name}">
+        </div>
+        <div class="pokemonFooter" id="pokemonImgFooter${renderedArray[i].id}">
+        </div>
+    </div>
 `;
 
 const DIALOG_WINDOW = (i) => `
-                <header>
-                    <h2>#${renderedArray[i].id}</h2>
-                    <h2>${capitalizeFirstLetter(renderedArray[i].name)}</h2>
-                    <img src="./assets/img/Close.png" alt="Close" onclick="closeDialog()">
-                </header>
-                <main class="myDialog_main">
-                    <section class="myDialog_sectionImg">
-                        <div class="image" id="${i}_img">
-                        <img src="${dataGifVeryfication(i)}" alt="Image of ${renderedArray[i].name}">
-                        </div>
-                        <div class="types" id="${i}_types">
-                        </div>
-                    </section>
-                    <section class="myDialog_sectionNav">
-                        <nav>
-                            <li onclick="pokemonShowMain(${i})" id="pokemonMainStats">main</li>
-                            <li onclick="pokemonShowStats(${i})" id="pokemonSecondStats">stats</li>
-                            <li onclick="pokemonShowEvo(${renderedArray[i].id}, ${i})" id="pokemonEvoChain">evo chain</li>
-                        </nav>
-                    </section>
-                    <section class="myDialog_sectionStats" id="${i}_stats">
-                    </section>
-                </main>
-                <footer>
-                    <img src="./assets/img/LeftArrow.png" alt="vorheriges Pokemon" id="arrowLeft" onclick="openDialog(prevPokemon(${i}))">
-                    <img src="./assets/img/RightArrow.png" alt="nächstes Pokemon" id="arrowRight" onclick="openDialog(nextPokemon(${i}))">
-                </footer>
+    <header>
+        <h2>#${renderedArray[i].id}</h2>
+        <h2>${capitalizeFirstLetter(renderedArray[i].name)}</h2>
+        <img src="./assets/img/Close.png" alt="Close" onclick="closeDialog()">
+    </header>
+    <main class="myDialog_main">
+        <section class="myDialog_sectionImg">
+            <div class="image" id="${i}_img">
+                <img src="${dataGifVeryfication(i)}" alt="Image of ${renderedArray[i].name}">
+            </div>
+            <div class="types" id="${i}_types">
+            </div>
+        </section>
+        <section class="myDialog_sectionNav">
+            <nav>
+                <li onclick="pokemonShowMain(${i})" id="pokemonMainStats">main</li>
+                <li onclick="pokemonShowStats(${i})" id="pokemonSecondStats">stats</li>
+                <li onclick="pokemonShowEvo(${renderedArray[i].id}, ${i})" id="pokemonEvoChain">evo chain</li>
+            </nav>
+        </section>
+        <section class="myDialog_sectionStats" id="${i}_stats">
+        </section>
+    </main>
+    <footer>
+        <img src="./assets/img/LeftArrow.png" alt="vorheriges Pokemon" id="arrowLeft" onclick="openDialog(prevPokemon(${i}))">
+        <img src="./assets/img/RightArrow.png" alt="nächstes Pokemon" id="arrowRight" onclick="openDialog(nextPokemon(${i}))">
+    </footer>
 `;
 
 const BUTTON_TO_LOAD_MORE = (pokemonAmount) => `
-   <div><button class="button_for_more" id="button_for_more" onclick="load(20, ${pokemonAmount})">Load more</button></div>
+    <div>
+        <button class="button_for_more" id="button_for_more" onclick="load(20, ${pokemonAmount})">Load more</button>
+    </div>
 `;
 
 const BUTTON_TO_BACK = () => `
-   <div><button class="button_for_more" id="button_for_more" onclick="pokemonMainRender()">Back</button></div>
+    <div>
+        <button class="button_for_more" id="button_for_more" onclick="pokemonMainRender()">Back</button>
+    </div>
 `;
 
 const LOADING_IMG = () => `
@@ -86,8 +89,7 @@ const POKEMON_DETAILED_STATS_VALUE = (NAME, i, VALUE, INDEX_IN_DATA) => `
         <td width="40%">${capitalizeFirstLetter(NAME)}</td>
         <td width="100%" class="tooltip" onmouseover="shwoToolTip('${NAME}', ${VALUE}, ${i}, ${INDEX_IN_DATA})" onmouseout="closeToolTip(${i}, ${INDEX_IN_DATA})">
             <div class="progress_bar_background" id="progress_bar_background_${i}">
-                <div class="progress_bar_value" id="${i}_progress_bar_value">
-                </div>
+                <div class="progress_bar_value" id="${i}_progress_bar_value"></div>
             </div>
             <div id="tooltip_${i}"></div>
         </td>
@@ -95,8 +97,7 @@ const POKEMON_DETAILED_STATS_VALUE = (NAME, i, VALUE, INDEX_IN_DATA) => `
 `;
 
 const POKEMON_EVO_CHAIN = () => `
-    <div class="evo_chain" id="pokemonEvoChainDiv">
-    </div>
+    <div class="evo_chain" id="pokemonEvoChainDiv"></div>
 `;
 
 const POKEMON_EVO_CHAIN_FORM = (url, name, i) => `

@@ -104,7 +104,6 @@ function setBorderBottomNavStats(elementID) {
     SECOND_STATS.classList.remove("activeNavStats");
     EVO_CHAIN.classList.remove("activeNavStats");
     document.getElementById(`${elementID}`).classList.add("activeNavStats");
-
 }
 
 function search() {
@@ -326,7 +325,6 @@ function typeImgSearch(type) {
 function addingPokemonTypeImg(idElement, index) {
     const POKEMON_TYPE_IMG_REF = document.getElementById(`${idElement}`);
     const NUMBER_OF_TYPES = renderedArray[index].types.length;
-
     for (let i = 0; i < NUMBER_OF_TYPES; i++) {
         POKEMON_TYPE_IMG_REF.innerHTML += `<img src="${typeImgSearch(renderedArray[index].types[i])}" alt="">`
     }
@@ -346,7 +344,6 @@ function disableLoadingSpinner() {
 
 function nextPokemon(value) {
     const result = value + 1;
-
     if (result >= renderedArray.length) {
         return 0;
     } else {
@@ -356,7 +353,6 @@ function nextPokemon(value) {
 
 function prevPokemon(value) {
     const result = value - 1;
-
     if (result < 0) {
         return renderedArray.length - 1;
     } else {
