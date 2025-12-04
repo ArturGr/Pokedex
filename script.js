@@ -78,18 +78,21 @@ function pokemonShowEvo(pokemonID, i) {
     REF_ELEMENT.classList.remove("statsContainerNoScroll");
     REF_ELEMENT.classList.add("statsContainerAutoScroll");
     document.getElementById("pokemonEvoChainDiv").innerHTML = "";
-    pokemonShowEvoForm(pokemonID)
+    pokemonShowEvoForm(pokemonID);
     REF_ELEMENT.classList.remove('forceRow');
     setBorderBottomNavStats("pokemonEvoChain");
 }
 
 async function pokemonShowEvoForm(pokemonID) {
     const EVOLUTION_NAMES = await getEvolutionChainNames(pokemonID);
+    const EVOLUTION_FORMS = [];
     for (let i = 0; i < EVOLUTION_NAMES.length; i++) {
+
         const NR = i + 1;
         const NAME = capitalizeFirstLetter(EVOLUTION_NAMES[i]);
         const CURRENT_POKEMON_ID = await getPokemonID(`${NAME}`)
         const URL = getPokemonPhoto(CURRENT_POKEMON_ID);
+
         document.getElementById("pokemonEvoChainDiv").innerHTML += POKEMON_EVO_CHAIN_FORM(URL, NAME, NR);
     }
 }
@@ -234,6 +237,19 @@ function openDialogWithPokemonStats(parameter) {
     addKeyListner();
     pokemonWindowBackgroundColor(RENDERED_ARRAY[parameter].types, `${parameter}_img`);
     addingPokemonTypeImg(`${parameter}_types`, parameter);
+    navArrowsHide();
+}
+
+function navArrowsHide() {
+    const LEFT_ARROW_REF = document.getElementById("arrowLeft");
+    const RIGHT_ARROW_REF = document.getElementById("arrowRight");
+    if (RENDERED_ARRAY.length == 1) {
+        LEFT_ARROW_REF.classList.add("hidden");
+        RIGHT_ARROW_REF.classList.add("hidden");
+    } else {
+        LEFT_ARROW_REF.classList.remove("hidden");
+        RIGHT_ARROW_REF.classList.remove("hidden");
+    }
 }
 
 function closeDialog() {
@@ -389,7 +405,7 @@ async function fetchAndProcessChain(chainUrl) {
     const CHAIN_RESPONSE = await fetch(chainUrl);
     const CHAIN_DATA = await CHAIN_RESPONSE.json();
     let currentChain = CHAIN_DATA.chain;
-    while (currentChain && (currentChain.evolves_to.length <= 1)) {
+    while (currentChain && (currentChain.evolves_to.length <= 2)) {
         EVO_CHAIN_NAMES.push(currentChain.species.name);
         if (currentChain.evolves_to.length === 0) break;
         currentChain = currentChain.evolves_to[0];

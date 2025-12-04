@@ -38,8 +38,8 @@ const DIALOG_WINDOW = (i) => `
                     </section>
                 </main>
                 <footer>
-                    <img src="./assets/img/LeftArrow.png" alt="vorheriges Pokemon" onclick="openDialog(prevPokemon(${i}))">
-                    <img src="./assets/img/RightArrow.png" alt="nächstes Pokemon" onclick="openDialog(nextPokemon(${i}))">
+                    <img src="./assets/img/LeftArrow.png" alt="vorheriges Pokemon" id="arrowLeft" onclick="openDialog(prevPokemon(${i}))">
+                    <img src="./assets/img/RightArrow.png" alt="nächstes Pokemon" id="arrowRight" onclick="openDialog(nextPokemon(${i}))">
                 </footer>
 `;
 
