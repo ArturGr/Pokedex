@@ -16,6 +16,7 @@ function pokemonMainRender(arr) {
     const MAIN_POKE_WINDOW_REF = document.getElementById("pokemonList");
     if (arr == null) {
         RENDERED_ARRAY = DATA;
+        document.getElementById("pokemonSearching").value = "";
     } else {
         RENDERED_ARRAY = arr;
     }
