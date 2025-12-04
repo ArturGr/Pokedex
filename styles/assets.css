@@ -356,7 +356,6 @@ html {
     }
 }
 
-
 #myDialog {
     h2 {
         color: var(--white);
@@ -437,6 +436,10 @@ html {
                 flex-direction: column;
                 justify-content: flex-start;
             }
+        }
+
+        .myDialog_sectionStats.force-row {
+            flex-direction: row !important;
         }
     }
 

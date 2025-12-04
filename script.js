@@ -20,8 +20,7 @@ function pokemonMainRender(arr) {
     } else {
         RENDERED_ARRAY = arr;
     }
-    MAIN_POKE_WINDOW_REF.style.display = "grid";
-    MAIN_POKE_WINDOW_REF.style.flexDirection = "";
+    MAIN_POKE_WINDOW_REF.classList.add("pokemon-list-grid");
     MAIN_POKE_WINDOW_REF.innerHTML = "";
     for (let i = 0; i < RENDERED_ARRAY.length; i++) {
         const name = capitalizeFirstLetter(RENDERED_ARRAY[i].name);
@@ -44,6 +43,7 @@ function pokemonShowMain(parameter) {
     const ABILITIES = [];
     RENDERED_ARRAY[parameter].abilities.forEach(element => { ABILITIES.push(" " + capitalizeFirstLetter(element)); });
     REF_ELEMENT.innerHTML = POKEMON_MAIN_STATS(HEIGHT, WEIGHT, ABILITIES);
+    REF_ELEMENT.classList.add('force-row');
     setBorderBottomNavStats("pokemonMainStats");
 }
 
@@ -57,49 +57,44 @@ function pokemonShowStats(parameter) {
         document.getElementById("tableOfPokemonDetailedStat").innerHTML += POKEMON_DETAILED_STATS_VALUE(NAME, i, VALUE, INDEX_IN_DATA);
         document.getElementById(`${i}_progress_bar_value`).style.width = `${calculatesPercent(NAME, VALUE)}%`;
     }
-    document.getElementById(`${parameter}_stats`).style.overflowY = "unset"
+    REF_ELEMENT.classList.remove("stats-container-auto-scroll");
+    REF_ELEMENT.classList.add("stats-container-no-scroll");
+    REF_ELEMENT.classList.remove('force-row');
     setBorderBottomNavStats("pokemonSecondStats");
 }
 
-async function pokemonShowEvo(pokemonID, i) {
+function pokemonShowEvo(pokemonID, i) {
     const REF_ELEMENT = document.getElementById(`${i}_stats`);
     REF_ELEMENT.innerHTML = POKEMON_EVO_CHAIN();
-    const evolutionNames = await getEvolutionChainNames(pokemonID);
-    document.getElementById(`${i}_stats`).style.overflowY = "auto";
+    REF_ELEMENT.classList.remove("stats-container-no-scroll");
+    REF_ELEMENT.classList.add("stats-container-auto-scroll");
     document.getElementById("pokemonEvoChainDiv").innerHTML = "";
-    for (let i = 0; i < evolutionNames.length; i++) {
-        const nr = i + 1;
-        const name = capitalizeFirstLetter(evolutionNames[i]);
-        const currentPokemonID = await getPokemonID(`${name}`)
-        const url = getPokemonPhoto(currentPokemonID);
-        document.getElementById("pokemonEvoChainDiv").innerHTML += POKEMON_EVO_CHAIN_FORM(url, name, nr);
-    }
+    pokemonShowEvoForm(pokemonID)
+    REF_ELEMENT.classList.remove('force-row');
     setBorderBottomNavStats("pokemonEvoChain");
 }
 
-function setBorderBottomNavStats(elementID) {
-    switch (elementID) {
-        case "pokemonMainStats":
-            document.getElementById("pokemonMainStats").style.borderBottom = "solid var(--orange) 3px";
-            document.getElementById("pokemonSecondStats").style.borderBottom = "";
-            document.getElementById("pokemonEvoChain").style.borderBottom = "";
-            break;
-
-        case "pokemonSecondStats":
-            document.getElementById("pokemonMainStats").style.borderBottom = "";
-            document.getElementById("pokemonSecondStats").style.borderBottom = "solid var(--orange) 3px";
-            document.getElementById("pokemonEvoChain").style.borderBottom = "";
-            break;
-
-        case "pokemonEvoChain":
-            document.getElementById("pokemonMainStats").style.borderBottom = "";
-            document.getElementById("pokemonSecondStats").style.borderBottom = "";
-            document.getElementById("pokemonEvoChain").style.borderBottom = "solid var(--orange) 3px";
-            break;
-
-        default:
-            break;
+async function pokemonShowEvoForm(pokemonID) {
+    const EVOLUTION_NAMES = await getEvolutionChainNames(pokemonID);
+    for (let i = 0; i < EVOLUTION_NAMES.length; i++) {
+        const NR = i + 1;
+        const NAME = capitalizeFirstLetter(EVOLUTION_NAMES[i]);
+        const CURRENT_POKEMON_ID = await getPokemonID(`${NAME}`)
+        const URL = getPokemonPhoto(CURRENT_POKEMON_ID);
+        document.getElementById("pokemonEvoChainDiv").innerHTML += POKEMON_EVO_CHAIN_FORM(URL, NAME, NR);
     }
+}
+
+
+function setBorderBottomNavStats(elementID) {
+    const MAIN_STATS = document.getElementById("pokemonMainStats");
+    const SECOND_STATS = document.getElementById("pokemonSecondStats");
+    const EVO_CHAIN = document.getElementById("pokemonEvoChain");
+    MAIN_STATS.classList.remove("active-nav-stats");
+    SECOND_STATS.classList.remove("active-nav-stats");
+    EVO_CHAIN.classList.remove("active-nav-stats");
+    document.getElementById(`${elementID}`).classList.add("active-nav-stats");
+
 }
 
 function search() {
@@ -179,9 +174,9 @@ function dataImportToArray() {
         "weight": singlePokemon.weight,
         "foto": singlePokemon.sprites.other.dream_world.front_default,
         "gif": singlePokemon.sprites.other.showdown.front_default,
-        "stats": filter(singlePokemon.stats, "Stats"),
-        "abilities": filter(singlePokemon.abilities, "Abilities"),
-        "types": filter(singlePokemon.types, "Types")
+        "stats": filterStats(singlePokemon.stats),
+        "abilities": filterAbilities(singlePokemon.abilities),
+        "types": filterTypes(singlePokemon.types)
     });
     singlePokemon = [];
 }
@@ -265,26 +260,26 @@ function capitalizeFirstLetter(value) {
     return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
-function filter(array, type) {
+function filterAbilities(array) {
     const NEW_ARRAY = [];
-    switch (type) {
-        case "Abilities":
-            array.forEach(element => { NEW_ARRAY.push(`${element.ability.name}`); });
-            break;
-        case "Types":
-            array.forEach(element => { NEW_ARRAY.push(`${element.type.name}`); });
-            break;
-        case "Stats":
-            array.forEach(element => {
-                const OBJ = {};
-                OBJ.name = element.stat.name;
-                OBJ.stat = element.base_stat;
-                NEW_ARRAY.push(OBJ);
-            });
-            break;
-        default:
-            break;
-    }
+    array.forEach(element => { NEW_ARRAY.push(`${element.ability.name}`); });
+    return NEW_ARRAY;
+}
+
+function filterTypes(array) {
+    const NEW_ARRAY = [];
+    array.forEach(element => { NEW_ARRAY.push(`${element.type.name}`); });
+    return NEW_ARRAY;
+}
+
+function filterStats(array) {
+    const NEW_ARRAY = [];
+    array.forEach(element => {
+        const OBJ = {};
+        OBJ.name = element.stat.name;
+        OBJ.stat = element.base_stat;
+        NEW_ARRAY.push(OBJ);
+    });
     return NEW_ARRAY;
 }
 
@@ -391,7 +386,6 @@ async function fetchAndProcessChain(chainUrl) {
     const CHAIN_RESPONSE = await fetch(chainUrl);
     const CHAIN_DATA = await CHAIN_RESPONSE.json();
     let currentChain = CHAIN_DATA.chain;
-    console.log(currentChain);
 
     while (currentChain && (currentChain.evolves_to.length <= 1)) {
         EVO_CHAIN_NAMES.push(currentChain.species.name);

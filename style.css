@@ -115,6 +115,23 @@ footer {
     }
 }
 
+.pokemon-list-grid {
+    display: grid !important;
+    flex-direction: initial !important;
+}
+
+.active-nav-stats {
+    border-bottom: solid var(--orange) 3px !important;
+}
+
+.stats-container-auto-scroll {
+    overflow-y: auto !important;
+}
+
+.stats-container-no-scroll {
+    overflow-y: unset !important;
+}
+
 @media (min-width: 768px) and (max-width: 1280.9px) {
 
     html {
