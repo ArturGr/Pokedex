@@ -85,13 +85,18 @@ function pokemonShowEvo(pokemonID, i) {
 }
 
 async function pokemonShowEvoForm(pokemonID) {
+    const EVO_CHAIN_DIV_REF = document.getElementById("pokemonEvoChainDiv");
     const EVOLUTION_NAMES = await getEvolutionChainNames(pokemonID);
     for (let i = 0; i < EVOLUTION_NAMES.length; i++) {
         const NR = i + 1;
         const NAME = capitalizeFirstLetter(EVOLUTION_NAMES[i]);
         const CURRENT_POKEMON_ID = await getPokemonID(`${NAME}`)
         const URL = getPokemonPhoto(CURRENT_POKEMON_ID);
-        document.getElementById("pokemonEvoChainDiv").innerHTML += POKEMON_EVO_CHAIN_FORM(URL, NAME, NR);
+        if (!EVO_CHAIN_DIV_REF) {
+            return;
+        } else {
+            EVO_CHAIN_DIV_REF.innerHTML += POKEMON_EVO_CHAIN_FORM(URL, NAME, NR);
+        }
     }
     disableEvoChainLoading();
 }
@@ -457,8 +462,13 @@ function enableEvoChainLoading() {
 }
 
 function disableEvoChainLoading() {
-    document.getElementById("pokemonMainStats").classList.remove("disabledNav");
-    document.getElementById("pokemonSecondStats").classList.remove("disabledNav");
-    document.getElementById("pokemonEvoChain").classList.remove("disabledNav");
-    document.getElementById("myLoadIMG").remove();
+    const EVO_CHAIN_DIV_REF = document.getElementById("pokemonEvoChainDiv");
+    if (!EVO_CHAIN_DIV_REF) {
+        return;
+    } else {
+        document.getElementById("pokemonMainStats").classList.remove("disabledNav");
+        document.getElementById("pokemonSecondStats").classList.remove("disabledNav");
+        document.getElementById("pokemonEvoChain").classList.remove("disabledNav");
+        document.getElementById("myLoadIMG").remove();
+    }
 }
