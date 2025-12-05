@@ -89,7 +89,7 @@ const POKEMON_DETAILED_STATS_VALUE = (NAME, i, VALUE, INDEX_IN_DATA) => `
         <td width="40%">${capitalizeFirstLetter(NAME)}</td>
         <td width="100%" class="tooltip" onmouseover="shwoToolTip('${NAME}', ${VALUE}, ${i}, ${INDEX_IN_DATA})" onmouseout="closeToolTip(${i}, ${INDEX_IN_DATA})">
             <div class="progress_bar_background" id="progress_bar_background_${i}">
-                <div class="progress_bar_value" id="${i}_progress_bar_value"></div>
+                <div class="progress_bar_value ProgressBarValue_${i}" id="${i}_progress_bar_value"></div>
             </div>
             <div id="tooltip_${i}"></div>
         </td>

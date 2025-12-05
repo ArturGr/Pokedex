@@ -63,13 +63,19 @@ function pokemonShowStats(parameter) {
 }
 
 function statsGenerator(parameter) {
+    const STATS_CONTAINER_REF = document.getElementById("tableOfPokemonDetailedStat");
+    const ROOT_ELEMENT = document.documentElement;
+    let htmlFragment = '';
     for (let i = 0; i < renderedArray[parameter].stats.length; i++) {
+        const CSS_VARIABLE_NAME = `--stat_width_${i}`;
         const NAME = renderedArray[parameter].stats[i].name;
         const VALUE = renderedArray[parameter].stats[i].stat;
         const INDEX_IN_DATA = parameter;
-        document.getElementById("tableOfPokemonDetailedStat").innerHTML += POKEMON_DETAILED_STATS_VALUE(NAME, i, VALUE, INDEX_IN_DATA);
-        document.getElementById(`${i}_progress_bar_value`).style.width = `${calculatesPercent(NAME, VALUE)}%`;
+        STATS_CONTAINER_REF.innerHTML += POKEMON_DETAILED_STATS_VALUE(NAME, i, VALUE, INDEX_IN_DATA);
+        htmlFragment += POKEMON_DETAILED_STATS_VALUE(NAME, i, VALUE, INDEX_IN_DATA);
+        ROOT_ELEMENT.style.setProperty(CSS_VARIABLE_NAME, `${calculatesPercent(NAME, VALUE)}%`);
     }
+    STATS_CONTAINER_REF.innerHTML = htmlFragment;
 }
 
 function pokemonShowEvo(pokemonID, i) {
@@ -202,30 +208,52 @@ function pokemonBackgrouColorGenerator(arr) {
 
 function pokemonWindowBackgroundColor(type, idElement) {
     const NUMBER_OF_COLORS = type.length;
-    const BACKGROUD_REF = document.getElementById(`${idElement}`);
-    if (NUMBER_OF_COLORS == 2) {
-        const COLOR_FIRST = colorSearch(type[0]);
-        const COLOR_SECOND = colorSearch(type[1]);
-        BACKGROUD_REF.style.background = `linear-gradient(0deg, ${COLOR_SECOND} 0%, ${COLOR_FIRST} 100%)`;
+    const BACKGROUD_REF = document.getElementById(idElement);
+    removeBackgroundClasses(BACKGROUD_REF);
+    if (NUMBER_OF_COLORS === 2) {
+        const COLOR_FIRST_COLOR = colorSearch(type[0]);
+        const COLOR_SECOND_COLOR = colorSearch(type[1]);
+        setColorStyle(BACKGROUD_REF, COLOR_FIRST_COLOR, COLOR_SECOND_COLOR);
+    } else if (NUMBER_OF_COLORS === 1) {
+        const typeName = type[0].toLowerCase();
+        BACKGROUD_REF.classList.add(`bg_type_${typeName}`);
+    } else {
+        BACKGROUD_REF.classList.add('bg_type_default');
     }
-    else if (NUMBER_OF_COLORS == 1) {
-        BACKGROUD_REF.style.backgroundColor = `${colorSearch(type[0])}`;
-    }
-    else {
-        BACKGROUD_REF.style.backgroundColor = "#FFFFFF";
-    }
+}
+
+function getAllTypeClasses() {
+    const SINGLE_TYPE_CLASSES = [];
+    BACKGROUND_COLOR.forEach(element => {
+        SINGLE_TYPE_CLASSES.push(`bg_type_${element.type.toLowerCase()}`)
+    });
+    return ['bg_type_gradient', 'bg_type_default', SINGLE_TYPE_CLASSES];
+}
+
+function removeBackgroundClasses(element) {
+    const ALL_CLASSES = getAllTypeClasses();
+    element.classList.remove(...ALL_CLASSES);
+    element.style.removeProperty('--color_top');
+    element.style.removeProperty('--color_bottom');
+}
+
+function setColorStyle(BACKGROUD_REF, COLOR_FIRST_COLOR, COLOR_SECOND_COLOR) {
+    BACKGROUD_REF.style.setProperty('--color_top', COLOR_FIRST_COLOR);
+    BACKGROUD_REF.style.setProperty('--color_bottom', COLOR_SECOND_COLOR);
+    BACKGROUD_REF.classList.add('bg_type_gradient');
 }
 
 function openDialog(parameter) {
     dialogRef = document.getElementById("myDialog");
     if (parameter == "LOADING") {
         dialogRef.innerHTML = LOADING_IMG();
-        dialogRef.style.height = "400px";
-        dialogRef.style.justifyContent = "center";
+        dialogRef.classList.add("opened");
+        dialogRef.classList.add("dialogLoadingStyle");
     } else if (parameter != "LOADING") {
         openDialogWithPokemonStats(parameter);
     }
-    document.body.style.overflow = "clip";
+    document.body.classList.remove("overflowStyleAuto");
+    document.body.classList.add("overflowStyleClip");
     dialogRef.showModal();
     dialogRef.classList.add("opened");
 }
@@ -258,9 +286,9 @@ function closeDialog() {
     dialogRef.close();
     dialogRef.innerHTML = "";
     dialogRef.classList.remove("opened");
-    dialogRef.style.height = "";
-    dialogRef.style.justifyContent = "";
-    document.body.style.overflow = "auto";
+    dialogRef.classList.remove("dialogLoadingStyle");
+    document.body.classList.remove("overflowStyleClip");
+    document.body.classList.add("overflowStyleAuto");
 }
 
 function closeDialogListner() {
@@ -311,20 +339,18 @@ function colorSearch(type) {
     for (let i = 0; i < BACKGROUND_COLOR.length; i++) {
         if (type == BACKGROUND_COLOR[i].type) {
             return BACKGROUND_COLOR[i].color;
-        } else if (i == BACKGROUND_COLOR.length - 1 && type != BACKGROUND_COLOR[i].type) {
-            return "#FFFFFF";
         }
     }
+    return "#FFFFFF";
 }
 
 function typeImgSearch(type) {
     for (let i = 0; i < TYPES_IMG.length; i++) {
         if (type == TYPES_IMG[i].type) {
             return TYPES_IMG[i].url;
-        } else if (i == TYPES_IMG.length - 1 && type != TYPES_IMG[i].type) {
-            return "";
         }
     }
+    return "";
 }
 
 function addingPokemonTypeImg(idElement, index) {
@@ -336,14 +362,16 @@ function addingPokemonTypeImg(idElement, index) {
 }
 
 function enableLoadingSpinner() {
-    if (document.getElementById("button_for_more") != null) {
-        document.getElementById("button_for_more").style.display = "none";
+    const BUTTON_FOR_MORE_REF = document.getElementById("button_for_more");
+    if (BUTTON_FOR_MORE_REF != null) {
+        BUTTON_FOR_MORE_REF.classList.add("hidden");
     }
     openDialog("LOADING");
 }
 
 function disableLoadingSpinner() {
-    document.getElementById("button_for_more").style.display = "";
+    const BUTTON_FOR_MORE_REF = document.getElementById("button_for_more");
+    BUTTON_FOR_MORE_REF.classList.remove("hidden");
     closeDialog();
 }
 

@@ -319,7 +319,7 @@ html {
 
                             div.progress_bar_value {
                                 height: 18px;
-                                width: 25%;
+                                /*width: 25%;*/
                                 background-color: var(--white);
                                 border-radius: 5px;
                             }
@@ -400,6 +400,32 @@ html {
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.ProgressBarValue_0 {
+    width: var(--stat_width_0);
+}
+
+.ProgressBarValue_1 {
+    width: var(--stat_width_1);
+}
+
+.ProgressBarValue_2 {
+    width: var(--stat_width_2);
+}
+
+.ProgressBarValue_3 {
+    width: var(--stat_width_3);
+}
+
+.ProgressBarValue_4 {
+    width: var(--stat_width_4);
+}
+
+.ProgressBarValue_5 {
+    width: var(--stat_width_5);
+}
+
+
 
 #myLoadIMG {
     position: absolute;

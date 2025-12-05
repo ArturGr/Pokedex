@@ -5,6 +5,12 @@
     --header: #082129;
     --background: #05171E;
     --nav_bar_stats: #124758;
+    --stat_width_0: 25%;
+    --stat_width_1: 25%;
+    --stat_width_2: 25%;
+    --stat_width_3: 25%;
+    --stat_width_4: 25%;
+    --stat_width_5: 25%;
 }
 
 html {
@@ -148,6 +154,19 @@ footer {
     pointer-events: none;
 }
 
+.dialogLoadingStyle {
+    height: 400px;
+    justify-content: center;
+}
+
+.overflowStyleClip {
+    overflow: clip;
+}
+
+.overflowStyleAuto {
+    overflow: auto;
+}
+
 @media (min-width: 768px) and (max-width: 1280.9px) {
 
     html {
@@ -212,4 +231,93 @@ footer {
         height: 86px;
         padding: 0px 10px;
     }
+}
+
+
+.pokemon_colored_element {
+    transition: background 0.3s;
+}
+
+.bg_type_gradient {
+    background: linear-gradient(0deg, var(--color_bottom) 0%, var(--color_top) 100%) !important;
+}
+
+.bg_type_default {
+    background-color: #FFFFFF !important;
+}
+
+.bg_type_normal {
+    background-color: #A4A4A4 !important;
+}
+
+.bg_type_fighting {
+    background-color: #C7703A !important;
+}
+
+.bg_type_flying {
+    background-color: #4B65AF !important;
+}
+
+.bg_type_poison {
+    background-color: #7D57A0 !important;
+}
+
+.bg_type_ground {
+    background-color: #947944 !important;
+}
+
+.bg_type_rock {
+    background-color: #5C7A7A !important;
+}
+
+.bg_type_bug {
+    background-color: #699936 !important;
+}
+
+.bg_type_ghost {
+    background-color: #9D70B1 !important;
+}
+
+.bg_type_steel {
+    background-color: #9D70B1 !important;
+}
+
+.bg_type_water {
+    background-color: #559AD3 !important;
+}
+
+.bg_type_electric {
+    background-color: #BFA546 !important;
+}
+
+.bg_type_psychic {
+    background-color: #BF5B99 !important;
+}
+
+.bg_type_ice {
+    background-color: #71ACC2 !important;
+}
+
+.bg_type_dragon {
+    background-color: #50A495 !important;
+}
+
+.bg_type_dark {
+    background-color: #86538C !important;
+}
+
+.bg_type_fairy {
+    background-color: #DAB0D4 !important;
+}
+
+.bg_type_stellar {
+    background-color: #FFFFFF !important;
+}
+
+.bg_type_fire {
+    background-color: #BF403A !important;
+}
+
+.bg_type_grass {
+    background-color: #53A93A !important;
 }
