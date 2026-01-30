@@ -47,7 +47,8 @@ Pokedex/
 └── index.html       # Main entry point of the application
 ```
 
-Installation & Setup
+## 🔧 Installation & Setup
+
 Clone the repository:
 
 git clone [https://github.com/your-username/Pokedex.git](https://github.com/your-username/Pokedex.git)
