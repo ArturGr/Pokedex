@@ -51,7 +51,7 @@ Pokedex/
 
 Clone the repository:
 
-git clone [https://github.com/your-username/Pokedex.git](https://github.com/your-username/Pokedex.git)
+git clone [https://github.com/ArturGr/Pokedex.git](https://github.com/ArturGr/Pokedex.git)
 
 Open index.html in your browser.
 
